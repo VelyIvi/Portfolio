@@ -1,0 +1,13 @@
+{
+  "name": "Portfolio",
+  "version": "1.0.0",
+  "dependencies": {
+    "three": "^0.156.1",
+    "twgl.js": "^5.5.3"
+  },
+  "devDependencies": {
+    "raw-loader": "^4.0.2",
+    "vite": "^4.4.9",
+    "vite-plugin-string": "^1.2.1"
+  }
+}
