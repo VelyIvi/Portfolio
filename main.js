@@ -7,8 +7,6 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import icosphereVertexShader from './shaders/voronoi_vertex.glsl'
 import icosphereFragmentShader from './shaders/voronoi_fragment.glsl'
-import {Vector2} from "three";
-
 
 ////RENDERER
 
@@ -29,21 +27,21 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 ////ORBITAL CAMERA
-const controls = new OrbitControls( camera, renderer.domElement );
+// const controls = new OrbitControls( camera, renderer.domElement );
 
-camera.position.set( 2, 2, 2 );
-controls.update();
+camera.position.set( 0, 0 ,3  );
+// controls.update();
 
 ////LIGHTS
-const AmbientLight = new THREE.AmbientLight(0xffffff, 0.1);
-scene.add(AmbientLight);
+// const AmbientLight = new THREE.AmbientLight(0xffffff, 0.1);
+// scene.add(AmbientLight);
 
-const PointLight = new THREE.DirectionalLight(0xffffff, 1);
-scene.add(PointLight);
-PointLight.position.y = 10;
-
-////HELPERS
-const LightHelper = new THREE.DirectionalLightHelper( PointLight, 5 );
+// const PointLight = new THREE.DirectionalLight(0xffffff, 1);
+// scene.add(PointLight);
+// PointLight.position.y = 10;
+//
+// ////HELPERS
+// const LightHelper = new THREE.DirectionalLightHelper( PointLight, 5 );
 // scene.add( LightHelper );
 
 const GridHelper = new THREE.GridHelper(20, 20);
@@ -61,17 +59,20 @@ const  icoSphere = new THREE.Mesh(
             uTime: {value: uTimeAnimated},
             uScale: {value: 1},
             uResolution: new THREE.Uniform( new THREE.Vector2(10, 10)),
-            uChange: {value: 1},
+            uChange: {value: 0.0},
         }
     })
 );
 
 scene.add(icoSphere);
 
+
 var clock = new THREE.Clock();
 
 
 var deltaMouse = (0.0, 0.0);
+
+scene.background = new THREE.Color( 0x111818);
 
 function onWindowResize(){
 
@@ -89,7 +90,7 @@ function animate() {
 
     icoSphere.material.uniforms.uTime.value = 2*elapsedTime;
     // icoSphere.material.uniforms.uScale.value = Math.sin(elapsedTime)/2+1;
-    icoSphere.material.uniforms.uChange.value = Math.sin(elapsedTime)/3+1/3;
+    // icoSphere.material.uniforms.uChange.value = Math.sin(elapsedTime)/3+1/3;
 
     // icoSphere.material.uniforms.uPcurveHandle.value = Math.sin(elapsedTime)*4.0;
 
@@ -102,7 +103,7 @@ function animate() {
 
 
     // required if controls.enableDamping or controls.autoRotate are set to true
-    controls.update();
+    // controls.update();
 
     renderer.render( scene, camera );
 
