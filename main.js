@@ -66,19 +66,25 @@ var icoSphere = new THREE.Mesh(
 scene.add(icoSphere);
 
 
-var torusKnotGreen = new THREE.Mesh(
-    new THREE.TorusKnotGeometry( 0.4, 0.001,  64, 128, 3, 2),
-    new THREE.MeshBasicMaterial( { color: 0x6E0D25})
+var torusKnot1 = new THREE.Mesh(
+    new THREE.TorusKnotGeometry( 0.8, 0.08,  128, 3, 4, 5),
+    new THREE.MeshBasicMaterial( { color: 0xB33951, wireframe: true})
 );
 
 
-var torusKnotBlue = new THREE.Mesh(
-    new THREE.TorusKnotGeometry( 0.5, 0.001,  64, 128, 3, 5),
-    new THREE.MeshBasicMaterial( { color: 0x9E768F})
+var torusKnot2 = new THREE.Mesh(
+    new THREE.TorusKnotGeometry( 0.3, 0.01,  64, 3, 3, 5),
+    new THREE.MeshBasicMaterial( { color: 0xf5d3a3, wireframe: true})
 );
 
-scene.add(torusKnotGreen);
-scene.add(torusKnotBlue);
+var torusKnot3 = new THREE.Mesh(
+    new THREE.TorusKnotGeometry( 0.8, 0.05,  64, 5, 1, 3),
+    new THREE.MeshBasicMaterial( { color: 0x7CA5B8, wireframe: true})
+);
+
+scene.add(torusKnot1);
+scene.add(torusKnot2);
+scene.add(torusKnot3);
 
 var decorationCube1 = new THREE.Mesh(
     new THREE.BoxGeometry( 0.3,0.3, 0.3),
@@ -150,6 +156,13 @@ window.addEventListener( 'resize', onWindowResize, false );
 var clock = new THREE.Clock();
 var delta = 0;
 
+
+function RotateAdd(objectR, xR, yR, zR){
+    objectR.rotation.x += xR;
+    objectR.rotation.y += yR;
+    objectR.rotation.z += zR;
+}
+
 function animate() {
     document.body.onscroll = scrollAnimate();
 
@@ -165,34 +178,23 @@ function animate() {
 
 
     requestAnimationFrame( animate );
-    torusKnotGreen.rotation.x += 0.0005;
-    torusKnotGreen.rotation.y += 0.0005;
-    torusKnotGreen.rotation.z += 0.0005;
 
-    torusKnotBlue.rotation.x -= 0.0005;
-    torusKnotBlue.rotation.y += 0.0005;
-    torusKnotBlue.rotation.z -= 0.0008;
+    RotateAdd(torusKnot1, 0.0002, 0.0002, 0.0002);
+    RotateAdd(torusKnot2, -0.0002, 0.0005, -0.0004);
+    RotateAdd(torusKnot3, 0.0001, -0.0002, 0.0004);
 
 
-    decorationCube1.rotation.x += 0.001;
-    decorationCube1.rotation.y += 0.001;
-    decorationCube1.rotation.z += 0.001;
+    RotateAdd(decorationCube1, 0.001, 0.001, 0.001);
+    RotateAdd(decorationCube2, -0.002, 0.0015, -0.001);
+    RotateAdd(decorationCube3, 0.003, 0.0005, -0.001);
 
-    decorationCube2.rotation.x -= 0.002;
-    decorationCube2.rotation.y += 0.0015;
-    decorationCube2.rotation.z -= 0.001;
-
-    decorationCube3.rotation.x += 0.003;
-    decorationCube3.rotation.y += 0.0005;
-    decorationCube3.rotation.z -= 0.001;
-
-    decorationCube1.position.y = Math.sin(elapsedTime/2)/10+0.9;
+    decorationCube1.position.y = Math.sin(elapsedTime/2)/10+0.7;
     decorationCube1.position.x = Math.sin(elapsedTime/20)/8+1.5;
 
-    decorationCube2.position.y = Math.cos(elapsedTime*1.3)/20+0.3;
+    decorationCube2.position.y = Math.cos(elapsedTime*1.3)/20+0.1;
     decorationCube2.position.x = Math.sin(elapsedTime/10)/10+1.2;
 
-    decorationCube3.position.y = Math.sin(elapsedTime*1.8+26)/25+0.5;
+    decorationCube3.position.y = Math.sin(elapsedTime*1.8+26)/25+0.3;
     decorationCube3.position.x = Math.sin(elapsedTime/30)/10+1.8;
 
 

@@ -96,7 +96,7 @@ section {
 blockquote {
     margin: 0;
     padding: 0;
-    grid-column: 2 / span 9;
+    grid-column: 2 / span 11;
     margin-bottom: var(--spacing);
 }
 
