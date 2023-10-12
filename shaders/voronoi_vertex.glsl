@@ -64,7 +64,7 @@ void main() {
     vec2 res = 1.0 - 0.5* voronoi(vPosition*3., uTime*0.3, uScale);
     vec3 voronoiOut = clamp(vec3(res.x), 0.0, 1.0);
 
-    vec2 resIn = 0.8* voronoi(vPosition*3., uTime*0.5, uScale*(sin(uChange)/1.5+1.0));
+    vec2 resIn = 0.8* voronoi(vPosition*3., uTime*0.3, uScale*(sin(uChange)/1.5+1.0));
 //    vec2 resIn = 0.8* voronoi(vPosition*3., uTime*0.5, uScale*(uChange/2.0));
 //    vec3 voronoiOutIn = 0.4+0.4*clamp(vec3(resIn.x), 0.0, 1.0);
 
