@@ -52,22 +52,25 @@ h1, h2, h3, blockquote {
 
 
 tit {
-    /*writing-mode: vertical-rl;*/
-    /*text-orientation: mixed;*/
-    /*transform: rotate(180deg);*/
-    background: var(--dark-bg-flat);
     color: #F6D8AE;
     /*grid-column: 10/rem 3;*/
     font-size: 3rem;
-    /*padding: 2rem;*/
-    /*margin-bottom: var(--spacing);*/
+
+
+
 
     grid-column: 2 / 2;
     padding: 2rem;
     background: var(--dark-bg);
     /*font-size: 1.25rem;*/
-    /*line-height: 1.5;*/
+    line-height: 1.5;
     margin-bottom: var(--spacing);
+}
+
+tit h1 {
+    background: linear-gradient(to bottom, rgb(246, 216, 174), rgb(206, 100, 121));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 rest {

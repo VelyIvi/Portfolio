@@ -16,9 +16,11 @@ void main() {
     vec3 secondaryColor = RGBToFloat(vec3(179, 57, 81));
 
 
-    vec3 color = mix(mainColor, secondaryColor, pow(depthShadowsVoronoi, 1.0/1.2));
+    vec3 color = mix(mainColor, secondaryColor, pow(depthShadowsVoronoi, 1.0/1.3));
 //    vec3 color = mix(mainColor, secondaryColor, 0.0);
     vec3 colorMultiple = mix(mainColor, secondaryColor, depthShadowsVoronoi/2.0)*(depthShadowsVoronoi) + mix(mainColor, RGBToFloat(vec3(98, 144, 195)), 0.5+(depthShadowsVoronoi/.5))*(1.0-depthShadowsVoronoi);
+
+    vec3 BWColorAdapt = mix(RGBToFloat(vec3(220, 223, 228)), RGBToFloat(vec3(42, 59, 80)), pow(depthShadowsVoronoi, 1.0/1.3));
 
     vec3 BWColor = vec3(depthShadowsVoronoi);
 
