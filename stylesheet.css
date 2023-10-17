@@ -1,17 +1,14 @@
-@import url("https://use.typekit.net/jmk3xov.css");
-
+@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@700&display=swap');
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: #F6F7F8;
+    font-family: "Cousine", monospace;
+    color: white;
 }
 
 :root {
     --dark-bg-flat: rgba(28, 40, 54, 1.0);
     --dark-bg: rgba(28, 40, 54, 0.65);
-    --spacing: 350px;
+    /*--spacing: 350px;*/
 
-    font-family: brandon-grotesque, sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -20,97 +17,18 @@ canvas {
     position: fixed;
     top: 0;
     left: 0;
-}
-
-#info {
-    position: absolute;
-    top: 10px;
-    width: 100%;
-    text-align: center;
-    z-index: 100;
-    display:block;
+    z-index: 0;
 }
 
 main {
-    width: 100vw;
-    color: white;
-    z-index: 99;
+    /*width: 100vw;*/
     position: absolute;
-    width: 100%;
-    margin: 0px auto;
-    padding: 120px 0px;
+    z-index: 3;
 
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
 }
 
-h1, h2, h3, blockquote {
-    font-family: elevon, sans-serif;
-    font-weight: 700;
-    font-style: normal;
-}
-
-
-tit {
-    color: #F6D8AE;
-    /*grid-column: 10/rem 3;*/
-    font-size: 3rem;
-
-
-
-
-    grid-column: 2 / 2;
-    padding: 2rem;
+main p {
     background: var(--dark-bg);
-    /*font-size: 1.25rem;*/
-    line-height: 1.5;
-    margin-bottom: var(--spacing);
-}
-
-tit h1 {
-    background: linear-gradient(to bottom, rgb(246, 216, 174), rgb(206, 100, 121));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-rest {
-    backdrop-filter: blur(20px);
-}
-
-header {
-    background: var(--dark-bg);
-    grid-column: 2 / span 5;
-    font-size: 2.5rem;
-    padding: 2rem;
-    margin-bottom: var(--spacing);
-}
-
-section {
-    grid-column: 2 / 8;
-    padding: 1rem;
-    background: var(--dark-bg);
-    backdrop-filter: blur(20px);
-    filter: drop-shadow(0 0 3rem var(--dark-bg-flat));
-    font-size: 1.25rem;
-    line-height: 1.5;
-    margin-bottom: var(--spacing);
-}
-
-blockquote {
-    margin: 0;
-    padding: 0;
-    grid-column: 2 / span 11;
-    margin-bottom: var(--spacing);
-}
-
-blockquote p {
-    color: black;
-    background-color: white;
-    font-size: 4rem;
-    display: inline;
-    line-height: 1;
-}
-
-.left {
-    grid-column: 6 / 12;
+    margin: 1vh auto;
+    padding: 1vh 1vh;
 }

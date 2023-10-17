@@ -111,13 +111,13 @@ function RotateAdd(objectR, xR, yR, zR){
 
 const  cameraScrollSmoothness = 1/2;
 var cameraScrollPosition = new THREE.Vector3(-0.7, -0.4, 1.5);
-var cameraScrollMove = new THREE.Vector3(0, 0, 0);
+var cameraScrollMove = new THREE.Vector3(1, 1, 1.5);
 
 var cameraScrollEffect = 0;
 var cameraScrollEffectMove = 0;
 
 let mouse = new THREE.Vector2();
-var mouseMove = new THREE.Vector2(0, 0);
+var mouseMove = new THREE.Vector2(-5, 0);
 
 const clock = new THREE.Clock();
 var oldTime = 0;
@@ -129,7 +129,7 @@ function animate() {
     elapsedTime = clock.getElapsedTime();
     delta = elapsedTime - oldTime;
 
-    icoSphere.material.uniforms.uTime.value = 0.2*elapsedTime;
+    icoSphere.material.uniforms.uTime.value = 0.5*elapsedTime;
 
     mouseMove = new THREE.Vector2(mouseMove.x + (mouse.x - mouseMove.x)*delta/3, mouseMove.y + (mouse.y - mouseMove.y)*delta/3);
 
@@ -138,8 +138,8 @@ function animate() {
 
     camera.position.set(cameraScrollMove.x - (mouseMove.x*2 -1)/4, cameraScrollMove.y + (mouseMove.y*2 -1)/4, cameraScrollPosition.z);
 
-    camera.rotation.y = (-mouseMove.x)*Math.PI/32;
-    camera.rotation.x = (-mouseMove.y)*Math.PI/32;
+    camera.rotation.y = (-mouseMove.x)*Math.PI/64;
+    camera.rotation.x = (-mouseMove.y)*Math.PI/64;
 
     cameraScrollEffectMove = cameraScrollEffectMove + (cameraScrollEffect - cameraScrollEffectMove)*delta/(1/2);
     icoSphere.material.uniforms.uChange.value = cameraScrollEffectMove*0.9;
