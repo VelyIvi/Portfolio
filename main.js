@@ -69,7 +69,7 @@ function init() {
 init();
 
 var icoSphere = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1, 64),
+    new THREE.IcosahedronGeometry(1, 32),
     new THREE.ShaderMaterial({
         vertexShader: icosphereVertexShader,
         fragmentShader: icosphereFragmentShader,
