@@ -2,12 +2,52 @@ import * as THREE from 'three';
 
 import icosphereVertexShader from './shaders/voronoi_vertex.glsl'
 import icosphereFragmentShader from './shaders/voronoi_fragment.glsl'
+import {int, split, string} from "three/nodes";
 
 
 ////RENDERER
 var camera, scene, renderer;
+
+var DarkColor = "0B0A0A";
+var MainColor = "FBB13C";
+var ShadeColor = "AA0E47";
+// var LightColor = "FDF0D5";
+
+
+function hexToRgb(hex) {
+    hex = "0x" + hex;
+    var bigint = parseInt(hex, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+    return r + "," + g + "," + b;
+}
+
+function hexToVector(hex) {
+    hex = "0x" + hex;
+    var bigint = parseInt(hex, 16);
+    var r = ((bigint >> 16) & 255) / 255;
+    var g = ((bigint >> 8) & 255) / 255;
+    var b = (bigint & 255) / 255;
+
+    return new THREE.Vector3(r, g, b);
+}
+
+var hexNumbers = "0123456789ABCDEF".split('');
+function randomHexColor (){
+    var outColor = "";
+    for (let i = 0; i <= 8; i++){
+        outColor += (hexNumbers[Math.floor(Math.random()*hexNumbers.length)]);
+    }
+    return outColor;
+}
+function randomVectorColor (){
+    return new THREE.Vector3(Math.random(), Math.random(), Math.random());
+}
+
 function init() {
-    Number.prototype.clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+    // Number.prototype.clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#bg'),
@@ -29,7 +69,7 @@ function init() {
 init();
 
 var icoSphere = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1, 32),
+    new THREE.IcosahedronGeometry(1, 64),
     new THREE.ShaderMaterial({
         vertexShader: icosphereVertexShader,
         fragmentShader: icosphereFragmentShader,
@@ -39,6 +79,9 @@ var icoSphere = new THREE.Mesh(
             uScale: {value: 1.5},
             uResolution: new THREE.Uniform( new THREE.Vector2(10, 10)),
             uChange: {value: 0.0},
+            mainColor: new THREE.Uniform(hexToVector(MainColor)),
+            shadeColor: new THREE.Uniform(hexToVector(ShadeColor)),
+
         }
     })
 );
@@ -66,7 +109,7 @@ var decorationCube3 = new THREE.Mesh(
 decorationCube3.position.z = -0.3;
 scene.add(decorationCube3);
 
-scene.background = new THREE.Color( 0x151D28);
+scene.background = new THREE.Color("rgb("+ hexToRgb(DarkColor)+ ")");
 
 ////DOCUMENT INTERACTION
 var body = document.body,
@@ -97,12 +140,12 @@ addEventListener("scroll", (event) => {
     const t = -document.body.getBoundingClientRect().top/(height-windowInnerHeight);
     cameraScrollEffect = t;
 
-    cameraScrollPosition.set(-0.7 + t*1.4, -0.4 + t*0.8, 1.5);
+    cameraScrollPosition.set(-0.4 + t*1.0, -0.1 + t*0.5, 1.5);
 
 }, false);
 
 
-function RotateAdd(objectR, xR, yR, zR){
+function timeRotateAdd(objectR, xR, yR, zR){
     objectR.rotation.x += xR * delta;
     objectR.rotation.y += yR * delta;
     objectR.rotation.z += zR * delta;
@@ -124,33 +167,74 @@ var oldTime = 0;
 var delta = 0;
 var elapsedTime = 0;
 
+
+// var colorChangeButton = d3.select("#colorChangeButton").on("click", Search);
+const colorChangeButton = document.getElementById("ColorChangeButton");
+colorChangeButton.addEventListener('click', colorChangeButtonEvent);
+
+
+function colorChangeButtonEvent() {
+    mainColorDirection = randomVectorColor();
+    colorChangeTimerCurrent = 0;
+}
+
+
+var mainColorCurrent = randomVectorColor();
+var mainColorDirection = hexToVector(MainColor);
+var mainColorSpeed = 1;
+
+function lerp( a, b, alpha ) {
+    return a + alpha * ( b - a )
+}
+
+
+function timeLerp(a, b, speed){
+    return lerp(a, b, delta/speed);
+}
+
+function timeLerpVector2(a, b, speed){
+    return new THREE.Vector2(lerp(a.x, b.x, delta/speed), lerp(a.y, b.y, delta/speed));
+}
+
+var colorChangeTimerMax = 40;
+var colorChangeTimerCurrent = 0;
+
 function animate() {
+    if (colorChangeTimerCurrent >= colorChangeTimerMax){
+        mainColorDirection = randomVectorColor();
+        colorChangeTimerCurrent -= colorChangeTimerMax;
+    } else {
+        colorChangeTimerCurrent += delta;
+    }
+    mainColorCurrent.x = lerp(mainColorCurrent.x, mainColorDirection.x, mainColorSpeed*delta);
+    mainColorCurrent.y = lerp(mainColorCurrent.y, mainColorDirection.y, mainColorSpeed*delta);
+    mainColorCurrent.z = lerp(mainColorCurrent.z, mainColorDirection.z, mainColorSpeed*delta);
+    icoSphere.material.uniforms.mainColor = new THREE.Uniform(mainColorCurrent);
+
+    // console.log(mainColorDirection);
+    // console.log(mainColorCurrent);
 
     elapsedTime = clock.getElapsedTime();
     delta = elapsedTime - oldTime;
 
     icoSphere.material.uniforms.uTime.value = 0.5*elapsedTime;
 
-    mouseMove = new THREE.Vector2(mouseMove.x + (mouse.x - mouseMove.x)*delta/3, mouseMove.y + (mouse.y - mouseMove.y)*delta/3);
-
-
-    cameraScrollMove = new THREE.Vector2(cameraScrollMove.x + (cameraScrollPosition.x - cameraScrollMove.x)*delta/cameraScrollSmoothness, cameraScrollMove.y + (cameraScrollPosition.y - cameraScrollMove.y)*delta/cameraScrollSmoothness);
+    mouseMove = timeLerpVector2(mouseMove, mouse, 3);
+    cameraScrollMove = timeLerpVector2(cameraScrollMove, cameraScrollPosition, cameraScrollSmoothness);
 
     camera.position.set(cameraScrollMove.x - (mouseMove.x*2 -1)/4, cameraScrollMove.y + (mouseMove.y*2 -1)/4, cameraScrollPosition.z);
 
     camera.rotation.y = (-mouseMove.x)*Math.PI/64;
     camera.rotation.x = (-mouseMove.y)*Math.PI/64;
 
-    cameraScrollEffectMove = cameraScrollEffectMove + (cameraScrollEffect - cameraScrollEffectMove)*delta/(1/2);
-    icoSphere.material.uniforms.uChange.value = cameraScrollEffectMove*0.9;
+    cameraScrollEffectMove = timeLerp(cameraScrollEffectMove, cameraScrollEffect, (1/2));
+
+    icoSphere.material.uniforms.uChange.value = cameraScrollEffectMove * 0.9;
 
 
-    requestAnimationFrame( animate );
-
-
-    RotateAdd(decorationCube1, 0.05, 0.05, 0.05);
-    RotateAdd(decorationCube2, -0.01, 0.08, -0.05);
-    RotateAdd(decorationCube3, 0.015, 0.03, -0.05);
+    timeRotateAdd(decorationCube1, 0.05, 0.05, 0.05);
+    timeRotateAdd(decorationCube2, -0.01, 0.08, -0.05);
+    timeRotateAdd(decorationCube3, 0.015, 0.03, -0.05);
 
     decorationCube1.position.y = Math.sin(elapsedTime/8)/30+0.5;
     decorationCube1.position.x = Math.sin(elapsedTime/60)/8+1.5;
@@ -164,10 +248,10 @@ function animate() {
     icoSphere.position.y = Math.sin(elapsedTime*0.2)/30;
     icoSphere.position.x = Math.sin(elapsedTime/20)/80;
 
+
+    requestAnimationFrame( animate );
     renderer.render( scene, camera );
-
     oldTime = elapsedTime;
-
 }
 
 animate();
