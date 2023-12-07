@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,700;1,700&display=swap');
 @import url("https://use.typekit.net/jmk3xov.css");
 
 
@@ -18,8 +19,8 @@
     animation: hoverSpinOut 0.5s forwards;
     font-size: 16px;
     border: none;
-    width: 100%;
-    height: 100%;
+    height: 4em;
+    width: 4em;
 
     filter: invert(100%);
 }
@@ -28,15 +29,15 @@
 
 /* The container <div> - needed to position the dropdown content */
 .settings {
+    /*text-align: right;*/
     position: fixed;
     right: 0px;
     top: 0px;
     margin: 1vw;
     display: inline-block;
     z-index: 10;
-    height: 4em;
-
-    width: 4em;
+    /*width: auto;*/
+    /*height: 100%;*/
 
 }
 
@@ -55,13 +56,13 @@
 
 /* Dropdown Content (Hidden by Default) */
 .settings-content {
-    text-align: right;
+    /*text-align: right;*/
+    right: 0px;
     display: block;
     position: absolute;
-    right: 0px;
 
-    background-color: #000;
-    min-width: 160px;
+    background-color: #0B0A0A;
+    /*min-width: 160px;*/
     box-shadow: 0px 0px 20px rgb(0,0,0);
     z-index: 1;
     animation: hoverFadeOut 0.5s forwards;
@@ -69,16 +70,27 @@
 
 }
 
+
+
 .settings:hover .settings-content {animation: hoverFadeIn 0.5s forwards;}
+
+
+/*.container input:checked .settings {*/
+
+/*}*/
 
 /* Links inside the dropdown */
 .settings-content p {
-    padding: 20px 1px;
-    display: block;
+    padding: 1px 10px;
+}
+
+.settings-content input label{
+    padding: 1px 10px;
 }
 
 
-.settings:hover .settings-content {display: block;}
+
+/*.settings:hover .settings-content {display: block;}*/
 /*.settings:not(:hover) .settingsbtn{animation: hoverSpin 0.5s forwards;}*/
 
 
@@ -90,7 +102,7 @@
 /*!* Change the background color of the dropdown button when the dropdown content is shown *!*/
 
 body {
-    background: #000;
+    background: #0B0A0A;
     font-family: "Cousine", monospace;
     color: white;
     /*margin: 0;*/
@@ -113,7 +125,7 @@ canvas {
     z-index: -1;
 }
 
-.front{
+.front {
     position: static;
     /*background: red;*/
     width: 100vw;
@@ -121,46 +133,45 @@ canvas {
     left: 0;
     top: 0;
     margin: 0;
-    /*padding: 25vh 25vw;*/
-    /*display: inline-flex; !* or inline-flex *!*/
-
-    /*backdrop-filter:  blur(20px) saturate(200%);*/
+    padding: 0;
 
 }
-.frontTitleBackground {
-    position: static;
-    width: 66ex;
-    margin: 50vh 10vw;
-
-    border-radius: 10px;
-    background: rgba(167, 153, 183,0.3);
-}
-
 .front h1 {
-    /*margin: 0;*/
-    /*position: absolute;*/
-    /*margin: 0;*/
-    /*backdrop-filter:  blur(20px) saturate(200%);*/
-    /*background: blue;*/
+    position: relative;
 
-    /*padding: 20vw 20vh;*/
-    /*z-index: 10;*/
-
-    padding: 1vw;
-
-    overflow: clip;
-    /*background: green;*/
 
     font-size: 5vh;
-        background: -webkit-linear-gradient(left top,#D7FDF0, #A799B7);
+    /*background: -webkit-linear-gradient(left top,#D7FDF0, #A799B7);*/
     /*background: -moz-linear-gradient();*/
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 0.75rem #201D1E);
+    margin: 0;
+    padding: 1vw;
 
-    /*padding:0px;*/
-    /*padding: 1vw;*/
+    /*padding:0 1vw;*/
+    /*!*padding: 1vw;*!*/
 }
+
+
+.backgroundwrapper {
+    position: absolute;
+    text-align: center;
+    /*width: 100vw;*/
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    margin: 0;
+    padding: 0;
+    background: #0B0A0A;
+    filter: drop-shadow(0 0 1.75rem #0B0A0A);
+
+    /*backdrop-filter: invert(10%);*/
+}
+
+
+
 
 
 
@@ -179,6 +190,7 @@ main {
 
 main p {
     background: blue;
+    color: red;
 
     /*position: static;*/
     /*background: green;*/

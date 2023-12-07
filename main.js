@@ -11,7 +11,7 @@ var camera, scene, renderer;
 var DarkColor = "0B0A0A";
 var MainColor = "FBB13C";
 var ShadeColor = "AA0E47";
-// var LightColor = "FDF0D5";
+var LightColor = "FDF0D5";
 
 
 function hexToRgb(hex) {
@@ -34,6 +34,14 @@ function hexToVector(hex) {
     return new THREE.Vector3(r, g, b);
 }
 
+function vectorToRgb(vector){
+    return new THREE.Vector3(Math.round(vector.x*255), Math.round(vector.y*255), Math.round(vector.z*255))
+}
+function rgbToString(rgb){
+    return "rgb(" + rgb.x + ", " + rgb.y + ", " + rgb.z + ")";
+}
+
+
 var hexNumbers = "0123456789ABCDEF".split('');
 function randomHexColor (){
     var outColor = "";
@@ -45,6 +53,7 @@ function randomHexColor (){
 function randomVectorColor (){
     return new THREE.Vector3(Math.random(), Math.random(), Math.random());
 }
+
 
 function init() {
     // Number.prototype.clamp = (num, min, max) => Math.min(Math.max(num, min), max);
@@ -58,15 +67,18 @@ function init() {
 
 
     ////SCENE
-    scene = new THREE.Scene();
 
     ////CAMERA
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(-0.7, -0.4, 1.5);
+
+    const t = -document.body.getBoundingClientRect().top/(height-windowInnerHeight);
+    // console.log(t);
+    cameraScrollEffect = t;
+    cameraScrollPosition.set(-0.4 + t*1.0, -0.1 + t*0.5, 1.5);
 }
 
 
-init();
+scene = new THREE.Scene();
 
 var icoSphere = new THREE.Mesh(
     new THREE.IcosahedronGeometry(1, 32),
@@ -129,21 +141,17 @@ window.addEventListener( 'resize', (event) => {
 
 }, false);
 
-function powerDispersed(value){
-    return (4 * Math.pow((value-0.5), 3));
-}
 window.addEventListener("mousemove", (event) => { // convert to normalized device coordinates
     mouse.set((event.clientX / window.innerWidth), (event.clientY / window.innerHeight));
 }, false);
 
 addEventListener("scroll", (event) => {
     const t = -document.body.getBoundingClientRect().top/(height-windowInnerHeight);
+    // console.log(t);
     cameraScrollEffect = t;
-
     cameraScrollPosition.set(-0.4 + t*1.0, -0.1 + t*0.5, 1.5);
 
 }, false);
-
 
 function timeRotateAdd(objectR, xR, yR, zR){
     objectR.rotation.x += xR * delta;
@@ -151,22 +159,20 @@ function timeRotateAdd(objectR, xR, yR, zR){
     objectR.rotation.z += zR * delta;
 }
 
-
 const  cameraScrollSmoothness = 1/2;
-var cameraScrollPosition = new THREE.Vector3(-0.7, -0.4, 1.5);
+var cameraScrollPosition = new THREE.Vector3(1, 1, 1.5);
 var cameraScrollMove = new THREE.Vector3(1, 1, 1.5);
 
 var cameraScrollEffect = 0;
 var cameraScrollEffectMove = 0;
 
 let mouse = new THREE.Vector2();
-var mouseMove = new THREE.Vector2(-5, 0);
+var mouseMove = new THREE.Vector2();
 
 const clock = new THREE.Clock();
 var oldTime = 0;
 var delta = 0;
 var elapsedTime = 0;
-
 
 // var colorChangeButton = d3.select("#colorChangeButton").on("click", Search);
 const colorChangeButton = document.getElementById("ColorChangeButton");
@@ -187,7 +193,6 @@ function lerp( a, b, alpha ) {
     return a + alpha * ( b - a )
 }
 
-
 function timeLerp(a, b, speed){
     return lerp(a, b, delta/speed);
 }
@@ -199,16 +204,34 @@ function timeLerpVector2(a, b, speed){
 var colorChangeTimerMax = 40;
 var colorChangeTimerCurrent = 0;
 
+
+const frontTitle = document.getElementById("frontName");
+
+function clamp(value, min, max){
+    return Math.min(Math.max(value, min), max);
+}
+function timeLerpVectorColor(colorStart, colorEnd, speed){
+    const colorDelta = clamp(speed*delta, 0, 1);
+    return new THREE.Vector3(lerp(colorStart.x, colorEnd.x, colorDelta),
+        lerp(colorStart.y, colorEnd.y, colorDelta),
+        lerp(colorStart.z, colorEnd.z, colorDelta));
+}
+
+init();
+
 function animate() {
+    frontTitle.style.background =
+        "-webkit-linear-gradient(left top, " +  rgbToString(vectorToRgb(mainColorCurrent)) +", #" + ShadeColor +")";
+    frontTitle.style.webkitBackgroundClip = "text";
+    frontTitle.style.webkitTextFillColor = "transparent";
+
     if (colorChangeTimerCurrent >= colorChangeTimerMax){
         mainColorDirection = randomVectorColor();
-        colorChangeTimerCurrent -= colorChangeTimerMax;
+        colorChangeTimerCurrent = 0;
     } else {
         colorChangeTimerCurrent += delta;
     }
-    mainColorCurrent.x = lerp(mainColorCurrent.x, mainColorDirection.x, mainColorSpeed*delta);
-    mainColorCurrent.y = lerp(mainColorCurrent.y, mainColorDirection.y, mainColorSpeed*delta);
-    mainColorCurrent.z = lerp(mainColorCurrent.z, mainColorDirection.z, mainColorSpeed*delta);
+    mainColorCurrent = timeLerpVectorColor(mainColorCurrent, mainColorDirection, mainColorSpeed);
     icoSphere.material.uniforms.mainColor = new THREE.Uniform(mainColorCurrent);
 
     // console.log(mainColorDirection);
