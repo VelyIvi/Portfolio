@@ -36,6 +36,7 @@
     margin: 1vw;
     display: inline-block;
     z-index: 10;
+
     /*width: auto;*/
     /*height: 100%;*/
 
@@ -57,6 +58,7 @@
 /* Dropdown Content (Hidden by Default) */
 .settings-content {
     /*text-align: right;*/
+    width: auto;
     right: 0px;
     display: block;
     position: absolute;
@@ -67,6 +69,26 @@
     z-index: 1;
     animation: hoverFadeOut 0.5s forwards;
     filter: opacity(0%);
+}
+
+.settings-list{
+    list-style-type: none;
+    margin: 1vw;
+    padding: 0;
+}
+.settings-list label {
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+}
+
+/*#colorChangeButton {*/
+/*    color: white;*/
+/*}*/
+#colorChangeButton:hover {
+    cursor: pointer;
 
 }
 
@@ -84,9 +106,9 @@
     padding: 1px 10px;
 }
 
-.settings-content input label{
-    padding: 1px 10px;
-}
+/*.settings-content input label{*/
+/*    padding: 1px 10px;*/
+/*}*/
 
 
 
@@ -105,7 +127,8 @@ body {
     background: #0B0A0A;
     font-family: "Cousine", monospace;
     color: white;
-    /*margin: 0;*/
+    padding: 0;
+    margin: 0;
 }
 
 :root {
@@ -120,6 +143,7 @@ body {
 canvas {
     position: fixed;
     margin: 0;
+    padding: 0;
     top: 0;
     left: 0;
     z-index: -1;
@@ -127,6 +151,7 @@ canvas {
 
 .front {
     position: static;
+    overflow: hidden;
     /*background: red;*/
     width: 100vw;
     height: 100vh;
@@ -134,13 +159,14 @@ canvas {
     top: 0;
     margin: 0;
     padding: 0;
-
+    
 }
+
 .front h1 {
     position: relative;
 
 
-    font-size: 5vh;
+    font-size: 3rem;
     /*background: -webkit-linear-gradient(left top,#D7FDF0, #A799B7);*/
     /*background: -moz-linear-gradient();*/
     -webkit-background-clip: text;

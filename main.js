@@ -60,7 +60,7 @@ function init() {
 
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#bg'),
-        antialias: true
+        antialias: true,
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -98,28 +98,25 @@ var icoSphere = new THREE.Mesh(
     })
 );
 
-scene.add(icoSphere);
+// scene.add(icoSphere);
 
 var decorationCube1 = new THREE.Mesh(
     new THREE.BoxGeometry( 0.3,0.3, 0.3),
     new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true})
 );
 decorationCube1.position.z = -0.5;
-scene.add(decorationCube1);
 
 var decorationCube2 = new THREE.Mesh(
     new THREE.BoxGeometry( 0.2,0.2, 0.2),
     new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true})
 );
 decorationCube2.position.z = -0.1;
-scene.add(decorationCube2);
 
 var decorationCube3 = new THREE.Mesh(
     new THREE.BoxGeometry( 0.15,0.15, 0.15),
     new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true})
 );
 decorationCube3.position.z = -0.3;
-scene.add(decorationCube3);
 
 scene.background = new THREE.Color("rgb("+ hexToRgb(DarkColor)+ ")");
 
@@ -173,11 +170,7 @@ const clock = new THREE.Clock();
 var oldTime = 0;
 var delta = 0;
 var elapsedTime = 0;
-
-// var colorChangeButton = d3.select("#colorChangeButton").on("click", Search);
-const colorChangeButton = document.getElementById("ColorChangeButton");
-colorChangeButton.addEventListener('click', colorChangeButtonEvent);
-
+var virtualElapsedTime= 0;
 
 function colorChangeButtonEvent() {
     mainColorDirection = randomVectorColor();
@@ -204,8 +197,15 @@ function timeLerpVector2(a, b, speed){
 var colorChangeTimerMax = 40;
 var colorChangeTimerCurrent = 0;
 
+const colorChangeButton = document.getElementById("colorChangeButton");
+colorChangeButton.addEventListener('click', colorChangeButtonEvent);
 
 const frontTitle = document.getElementById("frontName");
+
+// const passionText = document.getElementById("passionText");
+
+const fpsDisplay = document.getElementById("fpsDisplay");
+
 
 function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
@@ -219,11 +219,150 @@ function timeLerpVectorColor(colorStart, colorEnd, speed){
 
 init();
 
+function randFloatSpread(value){
+    return ((Math.random()-0.5)*value);
+}
+
+
+
+function quadraticRandFloatSpread(value){
+    const randomValue = (Math.random()*2-1);
+
+    return ((Math.pow(randomValue, 2)/2)*value*Math.sign(randomValue));
+}
+
+function randFloatRange(min, max) {
+    const range = max - min;
+    return (Math.random() * range + min);
+}
+
+var stars = new Array(0);
+for ( var i = 0; i < 1000; i ++ ) {
+    let x = randFloatSpread(1000);
+    let y = randFloatSpread(  500);
+    let z = randFloatRange( -1000, -100);
+    stars.push(x, y, z);
+}
+var starsGeometry = new THREE.BufferGeometry();
+starsGeometry.setAttribute(
+    "position", new THREE.Float32BufferAttribute(stars, 3)
+);
+var starsMaterial = new THREE.PointsMaterial( { color: 0xffffff } );
+var starField = new THREE.Points(starsGeometry, starsMaterial);
+
+
+
+////Checkboxes
+var DecorationCheck = document.getElementById("decorationCheck");
+var MouseCheck = document.getElementById("mouseCheck");
+var ScrollCheck = document.getElementById("scrollCheck");
+var AnimationCheck = document.getElementById("animationCheck");
+var StarCheck = document.getElementById("starCheck");
+var IcoCheck = document.getElementById("icoCheck");
+
+
+var starsActive = StarCheck.checked;
+var decorationsActive = DecorationCheck.checked;
+var icoActive = IcoCheck.checked;
+
+
+
+if (starsActive){
+    scene.add(starField);
+}
+if (decorationsActive){
+    scene.add(decorationCube1);
+    scene.add(decorationCube2);
+    scene.add(decorationCube3);
+}
+if (icoActive){
+    scene.add(icoSphere);
+}
+
+
+function checkboxes() {
+    if (DecorationCheck.checked){
+        if (!decorationsActive){
+            decorationsActive = true;
+                scene.add(decorationCube1);
+                scene.add(decorationCube2);
+                scene.add(decorationCube3);
+        }
+    } else {
+        if (decorationsActive){
+            decorationsActive = false;
+                scene.remove(decorationCube1);
+                scene.remove(decorationCube2);
+                scene.remove(decorationCube3);
+        }
+    }
+    if (MouseCheck.checked){
+        mouseMove = timeLerpVector2(mouseMove, mouse, 3);
+    } else {
+        mouseMove.set(0.5,0.5);
+    }
+
+    if (ScrollCheck.checked){
+        cameraScrollMove = timeLerpVector2(cameraScrollMove, cameraScrollPosition, cameraScrollSmoothness);
+    } else {
+        cameraScrollMove.set(-0.4, -0.1, 1.5);
+    }
+    if (AnimationCheck.checked){
+        delta = elapsedTime - oldTime;
+    } else {
+        delta = 0;
+    }
+    if (StarCheck.checked){
+        if (!starsActive){
+            starsActive = true;
+            scene.add(starField);
+
+        }
+    } else {
+        if (starsActive){
+            starsActive = false;
+            scene.remove(starField);
+        }
+    }
+    if (IcoCheck.checked){
+        if (!icoActive){
+            icoActive = true;
+            scene.add(icoSphere);
+
+        }
+    } else {
+        if (icoActive){
+            icoActive = false;
+            scene.remove(icoSphere);
+        }
+    }
+}
+const fpsUpdateMax = 0.5;
+var fpsUpdate = 0;
+
 function animate() {
+    elapsedTime = clock.getElapsedTime();
+
+    fpsUpdate += elapsedTime - oldTime;
+    if(fpsUpdate>= fpsUpdateMax){
+        fpsDisplay.innerHTML = "FPS: " + Math.round(1/(elapsedTime - oldTime));
+        fpsUpdate = 0;
+    }
+    checkboxes();
+    virtualElapsedTime += delta;
     frontTitle.style.background =
         "-webkit-linear-gradient(left top, " +  rgbToString(vectorToRgb(mainColorCurrent)) +", #" + ShadeColor +")";
     frontTitle.style.webkitBackgroundClip = "text";
     frontTitle.style.webkitTextFillColor = "transparent";
+
+    colorChangeButton.style.color = rgbToString(vectorToRgb(mainColorCurrent));
+
+
+
+    // passionText.style.background =
+    //     "-webkit-linear-gradient(45deg, " +  rgbToString(vectorToRgb(mainColorCurrent)) +", #" + ShadeColor +")";
+    // passionText.style.webkitBackgroundClip = "text";
+    // passionText.style.webkitTextFillColor = "transparent";
 
     if (colorChangeTimerCurrent >= colorChangeTimerMax){
         mainColorDirection = randomVectorColor();
@@ -232,20 +371,17 @@ function animate() {
         colorChangeTimerCurrent += delta;
     }
     mainColorCurrent = timeLerpVectorColor(mainColorCurrent, mainColorDirection, mainColorSpeed);
-    icoSphere.material.uniforms.mainColor = new THREE.Uniform(mainColorCurrent);
+    icoSphere.material.uniforms.mainColor.value = mainColorCurrent;
 
     // console.log(mainColorDirection);
     // console.log(mainColorCurrent);
 
-    elapsedTime = clock.getElapsedTime();
-    delta = elapsedTime - oldTime;
-
-    icoSphere.material.uniforms.uTime.value = 0.5*elapsedTime;
-
-    mouseMove = timeLerpVector2(mouseMove, mouse, 3);
-    cameraScrollMove = timeLerpVector2(cameraScrollMove, cameraScrollPosition, cameraScrollSmoothness);
 
     camera.position.set(cameraScrollMove.x - (mouseMove.x*2 -1)/4, cameraScrollMove.y + (mouseMove.y*2 -1)/4, cameraScrollPosition.z);
+
+
+
+    icoSphere.material.uniforms.uTime.value = 0.5*virtualElapsedTime;
 
     camera.rotation.y = (-mouseMove.x)*Math.PI/64;
     camera.rotation.x = (-mouseMove.y)*Math.PI/64;
@@ -259,17 +395,17 @@ function animate() {
     timeRotateAdd(decorationCube2, -0.01, 0.08, -0.05);
     timeRotateAdd(decorationCube3, 0.015, 0.03, -0.05);
 
-    decorationCube1.position.y = Math.sin(elapsedTime/8)/30+0.5;
-    decorationCube1.position.x = Math.sin(elapsedTime/60)/8+1.5;
+    decorationCube1.position.y = Math.sin(virtualElapsedTime/8)/30+0.5;
+    decorationCube1.position.x = Math.sin(virtualElapsedTime/60)/8+1.5;
 
-    decorationCube2.position.y = Math.cos(elapsedTime*0.1)/20-0.1;
-    decorationCube2.position.x = Math.sin(elapsedTime/40)/10+1.2;
+    decorationCube2.position.y = Math.cos(virtualElapsedTime*0.1)/20-0.1;
+    decorationCube2.position.x = Math.sin(virtualElapsedTime/40)/10+1.2;
 
-    decorationCube3.position.y = Math.sin(elapsedTime*0.4+26)/25+0.1;
-    decorationCube3.position.x = Math.sin(elapsedTime/90)/10+1.8;
+    decorationCube3.position.y = Math.sin(virtualElapsedTime*0.4+26)/25+0.1;
+    decorationCube3.position.x = Math.sin(virtualElapsedTime/90)/10+1.8;
 
-    icoSphere.position.y = Math.sin(elapsedTime*0.2)/30;
-    icoSphere.position.x = Math.sin(elapsedTime/20)/80;
+    icoSphere.position.y = Math.sin(virtualElapsedTime*0.2)/30;
+    icoSphere.position.x = Math.sin(virtualElapsedTime/20)/80;
 
 
     requestAnimationFrame( animate );
