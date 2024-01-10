@@ -13,6 +13,9 @@
     to {transform: rotate(0deg);}
 }
 
+html{
+    scroll-behavior: smooth;
+}
 /* Dropdown Button */
 .settingsbtn {
     color: white;
@@ -41,44 +44,81 @@
     /*height: 100%;*/
 
 }
+/*@keyframes hoverFadeIn {*/
+/*    from {filter: opacity(0%);}*/
+/*    to {filter: opacity(100%);}*/
+/*}*/
+/*@keyframes hoverFadeOut {*/
+/*    from {filter: opacity(100%);}*/
+/*    to {filter: opacity(0%);}*/
+/*}*/
+/*.settings:hover .settings-content {animation: hoverFadeIn 0.5s forwards;}*/
+/*!* Dropdown Content (Hidden by Default) *!*/
+/*.settings-content {*/
+/*    !*text-align: right;*!*/
+/*    width: auto;*/
+/*    right: 0px;*/
+/*    display: block;*/
+/*    position: absolute;*/
 
-@keyframes hoverFadeIn {
-    from {filter: opacity(0%);}
-    to {filter: opacity(100%);}
-}
-
-@keyframes hoverFadeOut {
-    from {filter: opacity(100%);}
-    to {filter: opacity(0%);}
-
-
-}
+/*    background-color: #0B0A0A;*/
+/*    !*min-width: 160px;*!*/
+/*    box-shadow: 0px 0px 20px rgb(0,0,0);*/
+/*    z-index: 1;*/
+/*    animation: hoverFadeOut 0.5s forwards;*/
+/*    filter: opacity(100%);*/
+/*}*/
 
 
+/*@keyframes hoverFadeIn {*/
+/*    from {filter: opacity(0%);}*/
+/*    to {filter: opacity(100%);}*/
+/*}*/
+/*@keyframes hoverFadeOut {*/
+/*    from {filter: opacity(100%);}*/
+/*    to {filter: opacity(0%);}*/
+/*}*/
+.settings:hover .settings-content {max-height: 100vh;}
 /* Dropdown Content (Hidden by Default) */
-.settings-content {
-    /*text-align: right;*/
-    width: auto;
-    right: 0px;
-    display: block;
-    position: absolute;
 
-    background-color: #0B0A0A;
-    /*min-width: 160px;*/
-    box-shadow: 0px 0px 20px rgb(0,0,0);
-    z-index: 1;
-    animation: hoverFadeOut 0.5s forwards;
-    filter: opacity(0%);
-}
+.settings:hover .settings-list {max-height: 70vh; filter: opacity(100%);}
+
+
+
+/*@keyframes hoverFadeIn {*/
+/*    from {filter: opacity(0%);}*/
+/*    to {filter: opacity(100%);}*/
+/*}*/
+/*@keyframes hoverFadeOut {*/
+/*    from {filter: opacity(100%);}*/
+/*    to {filter: opacity(0%);}*/
+/*}*/
 
 .settings-list{
+    position: absolute;
+    right: 0;
+
+    box-shadow: 0px 0px 20px rgb(0,0,0);
+    z-index: 1;
+
     list-style-type: none;
-    margin: 1vw;
-    padding: 0;
+    margin: 0;
+    padding: 1vw;
+    overflow-y: hidden;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+
+
+    filter: opacity(0%);
+    background: black;
+    max-height: 0;
+    transition: max-height .1s ease, filter 1s;
+
 }
 .settings-list label {
     display: flex;
     /*justify-content: center;*/
+    /*overflow: hidden;*/
+
     align-items: center;
     vertical-align: middle;
     word-wrap: break-word;
@@ -94,7 +134,6 @@
 
 
 
-.settings:hover .settings-content {animation: hoverFadeIn 0.5s forwards;}
 
 
 /*.container input:checked .settings {*/
@@ -129,6 +168,7 @@ body {
     color: white;
     padding: 0;
     margin: 0;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
 :root {
@@ -159,7 +199,6 @@ canvas {
     top: 0;
     margin: 0;
     padding: 0;
-    
 }
 
 .front h1 {
@@ -177,7 +216,6 @@ canvas {
     /*padding:0 1vw;*/
     /*!*padding: 1vw;*!*/
 }
-
 
 .backgroundwrapper {
     position: absolute;
@@ -197,29 +235,44 @@ canvas {
 }
 
 
+.pageSection {
+    position: static;
+    /*width: vw;*/
+    /*height: 100vh;*/
+    margin: 1vh;
+    padding: 1vh;
+    background: #0B0A0A;
+    filter: drop-shadow(0 0 1.75rem #0B0A0A);
 
-
-
-
-main {
-
-    /*width: 100vw;*/
-    position: absolute;
-    z-index: 3;
-    background: green;
-
-
-    display: grid;
-    grid-column-gap: 20vh;
-    /*grid-template: auto;*/
+    /*background: #0B0A0A;*/
 }
 
-main p {
-    background: blue;
-    color: red;
+#passionText {
+    text-decoration: none;
+    background: linear-gradient(45deg,
+        rgba(187,109,240,1) 16%,
+        rgb(245,145,22) 47%,
+        rgb(212,54,160) 70%);
+    background-position-x:0%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+}
 
-    /*position: static;*/
-    /*background: green;*/
-    /*margin: 100px;*/
-    /*padding: 1vh 1vh;*/
+.menu {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    background: black;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.menu a {
+    text-decoration: none;
+}
+
+a {
+    /*text-decoration: none;*/
+    color: white;
 }

@@ -157,8 +157,8 @@ function timeRotateAdd(objectR, xR, yR, zR){
 }
 
 const  cameraScrollSmoothness = 1/2;
-var cameraScrollPosition = new THREE.Vector3(1, 1, 1.5);
-var cameraScrollMove = new THREE.Vector3(1, 1, 1.5);
+var cameraScrollPosition = new THREE.Vector3(0, 0, 0);
+var cameraScrollMove = new THREE.Vector3(0, 0, 1.5);
 
 var cameraScrollEffect = 0;
 var cameraScrollEffectMove = 0;
@@ -237,10 +237,16 @@ function randFloatRange(min, max) {
 }
 
 var stars = new Array(0);
-for ( var i = 0; i < 1000; i ++ ) {
+// for ( var i = 0; i < 1000; i ++ ) {
+//     let x = randFloatSpread(1000);
+//     let y = randFloatSpread(  500);
+//     let z = randFloatRange( -1000, -100);
+//     stars.push(x, y, z);
+// }
+for ( var i = 0; i < 5000; i ++ ) { //i < 3000
     let x = randFloatSpread(1000);
-    let y = randFloatSpread(  500);
-    let z = randFloatRange( -1000, -100);
+    let y = randFloatSpread(  1000);
+    let z = randFloatSpread(  1000);
     stars.push(x, y, z);
 }
 var starsGeometry = new THREE.BufferGeometry();
@@ -378,7 +384,10 @@ function animate() {
 
 
     camera.position.set(cameraScrollMove.x - (mouseMove.x*2 -1)/4, cameraScrollMove.y + (mouseMove.y*2 -1)/4, cameraScrollPosition.z);
+    // console.log(virtualElapsedTime);
 
+    timeRotateAdd(starField, 0.004, 0.005, -0.002);
+    // timeRotateAdd(starField, 1, 1, -1);
 
 
     icoSphere.material.uniforms.uTime.value = 0.5*virtualElapsedTime;
@@ -389,7 +398,6 @@ function animate() {
     cameraScrollEffectMove = timeLerp(cameraScrollEffectMove, cameraScrollEffect, (1/2));
 
     icoSphere.material.uniforms.uChange.value = cameraScrollEffectMove * 0.9;
-
 
     timeRotateAdd(decorationCube1, 0.05, 0.05, 0.05);
     timeRotateAdd(decorationCube2, -0.01, 0.08, -0.05);

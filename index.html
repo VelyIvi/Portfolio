@@ -8,64 +8,57 @@
 
 </head>
 <body>
-    <canvas id="bg"></canvas>
-
+    <canvas id="bg"></canvas><!--background initialization-->
     <div class="settings">
         <img class="settingsbtn" src="Images/settingDoNotPublish.png" height="512" width="512"/></img>
-        <div class="settings-content">
-            <ul class="settings-list">
-                <li><p id="colorChangeButton">Randomize Color</p></li>
-                <li><label>
-                    <input type="checkbox" id="icoCheck" checked="checked"/>
-                    Icosphere
-                </label></li>
-                <li><label>
-                    <input type="checkbox" id="decorationCheck" checked="checked"/>
-                    Decorations
-                </label></li>
-                <li><label>
-                    <input type="checkbox" id="mouseCheck" checked="checked"/>
-                    Mouse
-                </label></li>
+        <ul class="settings-list">
+            <li><p id="colorChangeButton">Randomize Color</p></li>
+            <li><label>
+                <input type="checkbox" id="icoCheck" checked="checked"/>
+                Icosphere
+            </label></li>
+            <li><label>
+                <input type="checkbox" id="decorationCheck" checked="checked"/>
+                Decorations
+            </label></li>
+            <li><label>
+                <input type="checkbox" id="mouseCheck" checked="checked"/>
+                Mouse
+            </label></li>
 
-                <li><label>
-                    <input type="checkbox" id="scrollCheck" checked="checked"/>
-                    Scroll
-                </label></li>
-                <li><label>
-                    <input type="checkbox" id="animationCheck" checked="checked"/>
-                    Animate
-                </label></li>
-                <li><label>
-                    <input type="checkbox" id="starCheck" checked="checked"/>
-                    Stars
-                </label></li>
-                <li>
-                    <p id="passionText"
-                        style="background: linear-gradient(45deg,
-                            rgba(187,109,240,1) 16%,
-                            rgb(245,145,22) 47%,
-                            rgb(212,54,160) 70%);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        font-style: italic;
-                    ">Graphics design is my Passion</p>
-                </li>
-                <li><p id="fpsDisplay">~FPS~</p></li>
+            <li><label>
+                <input type="checkbox" id="scrollCheck" checked="checked"/>
+                Scroll
+            </label></li>
+            <li><label>
+                <input type="checkbox" id="animationCheck" checked="checked"/>
+<!--                Animate (Doesn't work correctly)-->
+            </label></li>
+            <li><label>
+                <input type="checkbox" id="starCheck" checked="checked"/>
+                Stars
+            </label></li>
+            <li>
+                <p><a href="/bad.html" id="passionText">Graphics design is my Passion</a></p>
+            </li>
+            <li><p id="fpsDisplay">~FPS~</p></li>
+        </ul>
 
-
-            </ul>
-
-        </div>
-    </div>
-
-
+    </div><!--background settings-->
     <div class="front">
         <div class="backgroundwrapper">
             <h1 id="frontName">>> Ivan Velychko</h1>
         </div>
 
-    </div>
+    </div><!--name page-->
+    <ul class="menu">
+        <li><a href="#test1">Link 1</a></li>
+        <li><a href="#test2">Link 2</a></li>
+        <li><a href="#test3">Link 3</a></li>
+        <li><a href="#test4">Link 4</a></li>
+        <li><a href="#test5">Link 5</a></li>
+    </ul>
+
 <!--    //Who am i-->
 <!--    //Skills-->
 <!--    //Projects-->
@@ -74,7 +67,7 @@
 <!--        //Education and Work (With Pre Uni College-->
 <!--    //Contact-->
 
-    <div class="front">
+    <div id="test1" class="pageSection">
         <p> >Hya, Ivi Here</p>
         <p> >Hya, Ivi Here</p>
         <p> >Hya, Ivi Here</p>
@@ -103,20 +96,26 @@
         <p> >Hya, Ivi Here</p>
         <p> >Hya, Ivi Here</p>
     </div>
-
-
-
-<!--    <p> >Hya, Ivi Here</p>-->
-
-
-
+    <div id="test2" class="pageSection">
+        <p>Peter what are you doing?</p>
+    </div>
+    <div id="test3" class="pageSection">
+        <p>Crack</p>
+    </div>
+    <div id="test4" class="pageSection">
+        <p>Oh my god</p>
+    </div>
+    <div id="test5" class="pageSection">
+        <h3>Contact</h3>
+        <p>If you'd like to contact me </p>
+        <a href="mailto:someone@yoursite.com?subject=Mail from Our Site">Email</a>
+<!--        <a href="">X</a>-->
+        <a href="https://www.linkedin.com/in/ivan-velychko-402658267/">Linkedin</a>
+        <a href="https://github.com/VelyIvi">Github</a>
+<!--        <a href="">Youtube</a>-->
+    </div>
 
     <script type="module" src="/vite.config.js"></script>
     <script type="module" src="/main.js"></script>
-<!--    <script>-->
-<!--        function myFunction() {-->
-<!--            icoSphere.material.uniforms.mainColor = new THREE.Uniform(hexToVector(randomColor()));-->
-<!--        }-->
-<!--    </script>-->
 </body>
 </html>
