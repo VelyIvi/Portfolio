@@ -1,6 +1,23 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@700&display=swap');*/
-@import url('https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,700;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,700;1,400;1,700&display=swap');
 @import url("https://use.typekit.net/jmk3xov.css");
+
+
+:root { /* Controlls default colors and spacing*/
+    /*--main-color: rgb(255, 255, 255);*/
+    --dark-color: #0B0A0A;
+    --light-color: #EDEDED;
+
+    --default-border-radius: 1rem;
+
+    --default-drop-shadow: drop-shadow(0 0 0.75rem var(--dark-color));
+    /*--spacing: 350px;*/
+
+    /*font-weight: 400;*/
+    /*font-style: normal;*/
+
+
+}
 
 
 @keyframes hoverSpinIn {
@@ -13,17 +30,22 @@
     to {transform: rotate(0deg);}
 }
 
+p {
+    padding: 0;
+    margin: 0;
+}
+
 html{
     scroll-behavior: smooth;
 }
 /* Dropdown Button */
 .settingsbtn {
-    color: white;
+    color: var(--light-color);
     animation: hoverSpinOut 0.5s forwards;
     font-size: 16px;
     border: none;
-    height: 4em;
-    width: 4em;
+    height: 3vw;
+    width: 3vw;
 
     filter: invert(100%);
 }
@@ -44,61 +66,15 @@ html{
     /*height: 100%;*/
 
 }
-/*@keyframes hoverFadeIn {*/
-/*    from {filter: opacity(0%);}*/
-/*    to {filter: opacity(100%);}*/
-/*}*/
-/*@keyframes hoverFadeOut {*/
-/*    from {filter: opacity(100%);}*/
-/*    to {filter: opacity(0%);}*/
-/*}*/
-/*.settings:hover .settings-content {animation: hoverFadeIn 0.5s forwards;}*/
-/*!* Dropdown Content (Hidden by Default) *!*/
-/*.settings-content {*/
-/*    !*text-align: right;*!*/
-/*    width: auto;*/
-/*    right: 0px;*/
-/*    display: block;*/
-/*    position: absolute;*/
 
-/*    background-color: #0B0A0A;*/
-/*    !*min-width: 160px;*!*/
-/*    box-shadow: 0px 0px 20px rgb(0,0,0);*/
-/*    z-index: 1;*/
-/*    animation: hoverFadeOut 0.5s forwards;*/
-/*    filter: opacity(100%);*/
-/*}*/
-
-
-/*@keyframes hoverFadeIn {*/
-/*    from {filter: opacity(0%);}*/
-/*    to {filter: opacity(100%);}*/
-/*}*/
-/*@keyframes hoverFadeOut {*/
-/*    from {filter: opacity(100%);}*/
-/*    to {filter: opacity(0%);}*/
-/*}*/
 .settings:hover .settings-content {max-height: 100vh;}
-/* Dropdown Content (Hidden by Default) */
 
-.settings:hover .settings-list {max-height: 70vh; filter: opacity(100%);}
-
-
-
-/*@keyframes hoverFadeIn {*/
-/*    from {filter: opacity(0%);}*/
-/*    to {filter: opacity(100%);}*/
-/*}*/
-/*@keyframes hoverFadeOut {*/
-/*    from {filter: opacity(100%);}*/
-/*    to {filter: opacity(0%);}*/
-/*}*/
+.settings:hover .settings-list {max-height: 70vh; filter: opacity(100%) var(--default-drop-shadow);}
 
 .settings-list{
     position: absolute;
     right: 0;
 
-    box-shadow: 0px 0px 20px rgb(0,0,0);
     z-index: 1;
 
     list-style-type: none;
@@ -108,8 +84,10 @@ html{
     overflow-x: hidden; /* Hide horizontal scrollbar */
 
 
-    filter: opacity(0%);
-    background: black;
+    filter: opacity(0%) var(--default-drop-shadow);
+
+    background: var(--dark-color);
+    min-height: 0;
     max-height: 0;
     transition: max-height .1s ease, filter 1s;
 
@@ -124,21 +102,9 @@ html{
     word-wrap: break-word;
 }
 
-/*#colorChangeButton {*/
-/*    color: white;*/
-/*}*/
 #colorChangeButton:hover {
     cursor: pointer;
-
 }
-
-
-
-
-
-/*.container input:checked .settings {*/
-
-/*}*/
 
 /* Links inside the dropdown */
 .settings-content p {
@@ -154,30 +120,13 @@ html{
 /*.settings:hover .settings-content {display: block;}*/
 /*.settings:not(:hover) .settingsbtn{animation: hoverSpin 0.5s forwards;}*/
 
-
-/*!* Change color of dropdown links on hover *!*/
-/*.settings-content a:hover {background-color: #ddd;}*/
-
-/*!* Show the dropdown menu on hover *!*/
-
-/*!* Change the background color of the dropdown button when the dropdown content is shown *!*/
-
 body {
-    background: #0B0A0A;
+    background: var(--dark-color);
     font-family: "Cousine", monospace;
-    color: white;
+    color: var(--light-color);
     padding: 0;
     margin: 0;
     overflow-x: hidden; /* Hide horizontal scrollbar */
-}
-
-:root {
-    --dark-bg-flat: rgba(28, 40, 54, 1.0);
-    --dark-bg: rgba(28, 40, 54, 0.4);
-    /*--spacing: 350px;*/
-
-    font-weight: 400;
-    font-style: normal;
 }
 
 canvas {
@@ -206,8 +155,6 @@ canvas {
 
 
     font-size: 3rem;
-    /*background: -webkit-linear-gradient(left top,#D7FDF0, #A799B7);*/
-    /*background: -moz-linear-gradient();*/
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0;
@@ -228,9 +175,12 @@ canvas {
 
     margin: 0;
     padding: 0;
-    background: #0B0A0A;
-    filter: drop-shadow(0 0 1.75rem #0B0A0A);
+    background: var(--dark-color);
 
+    border-radius: var(--default-border-radius);
+
+
+    filter: var(--default-drop-shadow);
     /*backdrop-filter: invert(10%);*/
 }
 
@@ -241,8 +191,8 @@ canvas {
     /*height: 100vh;*/
     margin: 1vh;
     padding: 1vh;
-    background: #0B0A0A;
-    filter: drop-shadow(0 0 1.75rem #0B0A0A);
+    background: var(--dark-color);
+    filter: drop-shadow(0 0 1.75rem var(--dark-color));
 
     /*background: #0B0A0A;*/
 }
@@ -257,13 +207,15 @@ canvas {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-style: italic;
+    font-weight: bold;
+
 }
 
 .menu {
     position: fixed;
     right: 0;
     top: 50%;
-    background: black;
+    background: var(--dark-color);
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -274,5 +226,153 @@ canvas {
 
 a {
     /*text-decoration: none;*/
-    color: white;
+    color: var(--light-color);
 }
+
+
+.main {
+    display: grid;
+    /*grid-gap: 0vh;*/
+    /*row-gap: 3vh;*/
+    /*column-gap: 1vw;*/
+    /*grid-row-gap: 1vh;*/
+    grid-template-columns: 0.5fr 2fr 2fr 0.5fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "left aboutme aboutmeImage right"
+        "left project project right"
+        "left contact contact right"
+        "footer . . .";
+}
+
+
+.mainSection{
+    filter: var(--default-drop-shadow);
+    background: var(--dark-color);
+    border-radius: var(--default-border-radius);
+    margin: 2vh;
+    padding: 1vw;
+    line-height: 2.0;
+
+}
+.mainSection h2 {
+    margin: 0;
+    line-height: 2.0;
+
+    /*margin-bottom: 1vh;*/
+}
+.main div{
+}
+.main h3{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+#about {
+    grid-area: aboutme;
+    /*height: 100%;*/
+
+}
+#aboutImage {
+    grid-area: aboutmeImage;
+    width: 100%;
+}
+#contact{
+    grid-area: contact;
+    /*background: #EDEDED !important;*/
+}
+
+#project{
+    background: none;
+    grid-area: project;
+    /*background-color: red !important;*/
+    /*margin: 0;*/
+    margin: 2vh;
+    padding: 0;
+    /*box-shadow: none !important;*/
+}
+#project h2{
+    background: var(--dark-color);
+    margin: 0;
+    padding: 1vw;
+    border-radius: var(--default-border-radius);
+    filter: var(--default-drop-shadow);
+}
+#projectWrapper{
+    /*grid-area: project;*/
+    background: none;
+    display: grid;
+
+    /*gap: 1vw;*/
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-rows: masonry;
+
+}
+.projectContentWrapper{
+    /*background: #EDEDED;*/
+    margin: 2vh;
+
+    /*Flex to have the projects align better with the content*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*flex-wrap: nowrap;*/
+    /*justify-content: space-between;*/
+}
+.projectContent {
+    background: var(--dark-color);
+
+    filter: var(--default-drop-shadow);
+    border-radius: var(--default-border-radius);
+    /*width: 100%;*/
+    /*margin-top: 1vh;*/
+    padding: 2vw;
+    /*max-height: 100%;*/
+    /*height: 100%;*/
+    /*height: 100%;*/
+
+}
+
+.projectImage{
+    max-width: calc(100% - 1vw);
+    width:100%;
+    height: auto;
+    margin-bottom: 1vh;
+    padding: 0.5vw;
+    background: var(--dark-color);
+    filter: var(--default-drop-shadow);
+    border-radius: var(--default-border-radius);
+
+
+    /*padding: 1vh;*/
+
+    /*filter: grayscale(100%);*/
+}
+.projectEmbed {
+    aspect-ratio: 16 / 9; /* ↔️ is double the ↕️ */
+
+}
+
+.projectDate {
+    font-style: italic;
+    font-size: 1rem;
+}
+#footer {
+    grid-area: footer;
+    grid-column: span 4;
+    padding: 0.2vw;
+    background: var(--dark-color);
+    filter: var(--default-drop-shadow);
+
+}
+
+
+
+#contactSorter{
+    display: flex;
+    gap: 1rem;
+}
+
+#contactSorter img {
+    height: 3rem;
+}
+

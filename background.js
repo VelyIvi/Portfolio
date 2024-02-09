@@ -98,7 +98,6 @@ var icoSphere = new THREE.Mesh(
     })
 );
 
-// scene.add(icoSphere);
 
 var decorationCube1 = new THREE.Mesh(
     new THREE.BoxGeometry( 0.3,0.3, 0.3),
@@ -204,8 +203,6 @@ const frontTitle = document.getElementById("frontName");
 
 // const passionText = document.getElementById("passionText");
 
-const fpsDisplay = document.getElementById("fpsDisplay");
-
 
 function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
@@ -259,102 +256,136 @@ var starField = new THREE.Points(starsGeometry, starsMaterial);
 
 
 ////Checkboxes
-var DecorationCheck = document.getElementById("decorationCheck");
-var MouseCheck = document.getElementById("mouseCheck");
-var ScrollCheck = document.getElementById("scrollCheck");
-var AnimationCheck = document.getElementById("animationCheck");
-var StarCheck = document.getElementById("starCheck");
-var IcoCheck = document.getElementById("icoCheck");
+
+if (window.location) {
+    console.log(window.location.pathname);
+    if(window.location.pathname === "/"){
+        var DecorationCheck = document.getElementById("decorationCheck");
+        var MouseCheck = document.getElementById("mouseCheck");
+        var ScrollCheck = document.getElementById("scrollCheck");
+        var AnimationCheck = document.getElementById("animationCheck");
+        var StarCheck = document.getElementById("starCheck");
+        var IcoCheck = document.getElementById("icoCheck");
 
 
-var starsActive = StarCheck.checked;
-var decorationsActive = DecorationCheck.checked;
-var icoActive = IcoCheck.checked;
+        var starsActive = StarCheck.checked;
+        var decorationsActive = DecorationCheck.checked;
+        var icoActive = IcoCheck.checked;
 
 
 
-if (starsActive){
-    scene.add(starField);
+        const fpsDisplay = document.getElementById("fpsDisplay");
+
+
+        if (starsActive){
+            scene.add(starField);
+        }
+        if (decorationsActive){
+            scene.add(decorationCube1);
+            scene.add(decorationCube2);
+            scene.add(decorationCube3);
+        }
+        if (icoActive){
+            scene.add(icoSphere);
+        }
+    } else {
+        scene.add(starField);
+        scene.add(decorationCube1);
+        scene.add(decorationCube2);
+        scene.add(decorationCube3);
+        scene.add(icoSphere);
+    }
 }
-if (decorationsActive){
-    scene.add(decorationCube1);
-    scene.add(decorationCube2);
-    scene.add(decorationCube3);
-}
-if (icoActive){
-    scene.add(icoSphere);
-}
+
+
+
+
+
 
 
 function checkboxes() {
-    if (DecorationCheck.checked){
-        if (!decorationsActive){
-            decorationsActive = true;
-                scene.add(decorationCube1);
-                scene.add(decorationCube2);
-                scene.add(decorationCube3);
-        }
-    } else {
-        if (decorationsActive){
-            decorationsActive = false;
-                scene.remove(decorationCube1);
-                scene.remove(decorationCube2);
-                scene.remove(decorationCube3);
-        }
-    }
-    if (MouseCheck.checked){
-        mouseMove = timeLerpVector2(mouseMove, mouse, 3);
-    } else {
-        mouseMove.set(0.5,0.5);
-    }
+    if (window.location) {
+        console.log(window.location.pathname);
+        if(window.location.pathname === "/"){
+            if (DecorationCheck.checked){
+                if (!decorationsActive){
+                    decorationsActive = true;
+                        scene.add(decorationCube1);
+                        scene.add(decorationCube2);
+                        scene.add(decorationCube3);
+                }
+            } else {
+                if (decorationsActive){
+                    decorationsActive = false;
+                        scene.remove(decorationCube1);
+                        scene.remove(decorationCube2);
+                        scene.remove(decorationCube3);
+                }
+            }
+            if (MouseCheck.checked){
+                mouseMove = timeLerpVector2(mouseMove, mouse, 3);
+            } else {
+                mouseMove.set(0.5,0.5);
+            }
 
-    if (ScrollCheck.checked){
-        cameraScrollMove = timeLerpVector2(cameraScrollMove, cameraScrollPosition, cameraScrollSmoothness);
-    } else {
-        cameraScrollMove.set(-0.4, -0.1, 1.5);
-    }
-    if (AnimationCheck.checked){
-        delta = elapsedTime - oldTime;
-    } else {
-        delta = 0;
-    }
-    if (StarCheck.checked){
-        if (!starsActive){
-            starsActive = true;
-            scene.add(starField);
+            if (ScrollCheck.checked){
+                cameraScrollMove = timeLerpVector2(cameraScrollMove, cameraScrollPosition, cameraScrollSmoothness);
+            } else {
+                cameraScrollMove.set(-0.4, -0.1, 1.5);
+            }
+            if (StarCheck.checked){
+                if (!starsActive){
+                    starsActive = true;
+                    scene.add(starField);
 
-        }
-    } else {
-        if (starsActive){
-            starsActive = false;
-            scene.remove(starField);
-        }
-    }
-    if (IcoCheck.checked){
-        if (!icoActive){
-            icoActive = true;
-            scene.add(icoSphere);
+                }
+            } else {
+                if (starsActive){
+                    starsActive = false;
+                    scene.remove(starField);
+                }
+            }
+            if (IcoCheck.checked){
+                if (!icoActive){
+                    icoActive = true;
+                    scene.add(icoSphere);
 
-        }
-    } else {
-        if (icoActive){
-            icoActive = false;
-            scene.remove(icoSphere);
+                }
+            } else {
+                if (icoActive){
+                    icoActive = false;
+                    scene.remove(icoSphere);
+                }
+            }
         }
     }
 }
+
+
+
 const fpsUpdateMax = 0.5;
 var fpsUpdate = 0;
-
 function animate() {
+
     elapsedTime = clock.getElapsedTime();
 
+    delta = clamp(elapsedTime - oldTime, 0, 1);
+
     fpsUpdate += elapsedTime - oldTime;
-    if(fpsUpdate>= fpsUpdateMax){
-        fpsDisplay.innerHTML = "FPS: " + Math.round(1/(elapsedTime - oldTime));
-        fpsUpdate = 0;
+
+
+    if (window.location) {
+        // console.log(window.location.pathname);
+        if(window.location.pathname === "/"){
+            checkboxes();
+            if(fpsUpdate>= fpsUpdateMax){
+                fpsDisplay.innerHTML = "FPS: " + Math.round(1/(elapsedTime - oldTime));
+                fpsUpdate = 0;
+            }
+        }
     }
-    checkboxes();
+
+    // console.log(icoSphere.geometry);
     virtualElapsedTime += delta;
     frontTitle.style.background =
         "-webkit-linear-gradient(left top, " +  rgbToString(vectorToRgb(mainColorCurrent)) +", #" + ShadeColor +")";
@@ -362,7 +393,6 @@ function animate() {
     frontTitle.style.webkitTextFillColor = "transparent";
 
     colorChangeButton.style.color = rgbToString(vectorToRgb(mainColorCurrent));
-
 
 
     // passionText.style.background =

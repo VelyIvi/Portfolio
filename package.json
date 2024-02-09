@@ -2,6 +2,8 @@
   "name": "Portfolio",
   "version": "1.0.0",
   "dependencies": {
+    "colcade": "^0.2.0",
+    "masonry-layout": "^4.2.2",
     "npm-build": "^0.0.1",
     "three": "^0.156.1",
     "twgl.js": "^5.5.3"

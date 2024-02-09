@@ -5,12 +5,11 @@
     <title>Ivan Velychko</title>
     <link rel="stylesheet" href="stylesheet.css">
     <link rel = "icon" href = "Images/tempLogo.png">
-
 </head>
 <body>
     <canvas id="bg"></canvas><!--background initialization-->
     <div class="settings">
-        <img class="settingsbtn" src="Images/settingDoNotPublish.png" height="512" width="512"/></img>
+        <img class="settingsbtn" src="Images/SettingsIcon.svg" height="512" width="512"/></img>
         <ul class="settings-list">
             <li><p id="colorChangeButton">Randomize Color</p></li>
             <li><label>
@@ -18,7 +17,7 @@
                 Icosphere
             </label></li>
             <li><label>
-                <input type="checkbox" id="decorationCheck" checked="checked"/>
+                <input type="checkbox" id="decorationCheck"/>
                 Decorations
             </label></li>
             <li><label>
@@ -29,10 +28,6 @@
             <li><label>
                 <input type="checkbox" id="scrollCheck" checked="checked"/>
                 Scroll
-            </label></li>
-            <li><label>
-                <input type="checkbox" id="animationCheck" checked="checked"/>
-<!--                Animate (Doesn't work correctly)-->
             </label></li>
             <li><label>
                 <input type="checkbox" id="starCheck" checked="checked"/>
@@ -52,11 +47,11 @@
 
     </div><!--name page-->
     <ul class="menu">
-        <li><a href="#test1">Link 1</a></li>
-        <li><a href="#test2">Link 2</a></li>
-        <li><a href="#test3">Link 3</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#project">Project</a></li>
+        <li><a href="#contact">Contact</a></li>
         <li><a href="#test4">Link 4</a></li>
-        <li><a href="#test5">Link 5</a></li>
+        <li><a href="#contact">Contact</a></li>
     </ul>
 
 <!--    //Who am i-->
@@ -67,55 +62,153 @@
 <!--        //Education and Work (With Pre Uni College-->
 <!--    //Contact-->
 
-    <div id="test1" class="pageSection">
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-        <p> >Hya, Ivi Here</p>
-    </div>
-    <div id="test2" class="pageSection">
-        <p>Peter what are you doing?</p>
-    </div>
-    <div id="test3" class="pageSection">
-        <p>Crack</p>
-    </div>
-    <div id="test4" class="pageSection">
-        <p>Oh my god</p>
-    </div>
-    <div id="test5" class="pageSection">
-        <h3>Contact</h3>
-        <p>If you'd like to contact me </p>
-        <a href="mailto:someone@yoursite.com?subject=Mail from Our Site">Email</a>
-<!--        <a href="">X</a>-->
-        <a href="https://www.linkedin.com/in/ivan-velychko-402658267/">Linkedin</a>
-        <a href="https://github.com/VelyIvi">Github</a>
-<!--        <a href="">Youtube</a>-->
+    <div class="main">
+        <div id="about" class="mainSection">
+            <h2>//About Me</h2>
+            <p>
+                Heya, Ivi here.<br>
+                Just your friendly neighbourhood programer/desiner.
+            </p>
+        </div>
+<!--        <img src="Images/tempLogo.png" id="aboutImage" class="mainSection">-->
+
+        <div id="project">
+            <h2 class="mainSection">//Projects</h2>
+
+<!--            Script to find if masonry an experimental feature is supported-->
+            <script>
+                // window.addEventListener("load", (event) => {
+                    masonryEnabled = CSS.supports("grid-template-rows: masonry");
+                    if (!masonryEnabled) {
+                        const para = document.createElement("p");
+                        const node = document.createTextNode("Due to the experimental features used most browsers don't support the correct features used. To see the browsers supported see: ");
+                        const link = document.createElement("a");
+                        const nodeLink = document.createTextNode("CSS masonry");
+                        link.href = "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout";
+                        link.title = "CSS Masonry";
+                        link.appendChild(nodeLink);
+
+
+                        para.appendChild(node);
+                        para.classList.add("mainSection");
+                        para.style.color = "red";
+                        const element = document.getElementById("project");
+                        element.appendChild(para);
+                        para.appendChild(link);
+                    }
+                }
+            </script>
+
+            <div id="projectWrapper">
+                <div class="projectContentWrapper">
+<!--                    <div class="projectContentImage">-->
+<!--                        <img src="Images/tempLogo.png" class="projectImage">-->
+<!--                    </div>-->
+                    <div class="projectContent">
+                        <h3>VU C++ Course</h3>
+                        <p class="projectDate">Coderclass: 2021-2022 first semester</p>
+                        <h4>Introducion to C++ from the Vrije Universiteit (Free University) located in Amsterdam.</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Id interdum velit laoreet id donec ultrices tincidunt
+                            arcu. Integer feugiat scelerisque varius morbi enim nunc. Iaculis nunc sed augue lacus
+                            viverra vitae congue eu. Aliquet enim tortor at auctor urna nunc. Vitae sapien pellentesque
+                            habitant morbi tristique.</p>
+                    </div>
+                </div>
+                <div class="projectContentWrapper">
+                    <div class="projectContent">
+                        <h3>Introduction to Godot</h3>
+                        <p class="projectDate">Coderclass: 2021-2022 second semester</p>
+                        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Id interdum velit laoreet id donec ultrices tincidunt
+                            arcu. Integer feugiat scelerisque varius morbi enim nunc. Iaculis nunc sed augue lacus
+                            viverra vitae congue eu. Aliquet enim tortor at auctor urna nunc. Vitae sapien pellentesque
+                            habitant morbi tristique.</p>
+                    </div>
+                </div>
+                <div class="projectContentWrapper">
+                    <div class="projectContentImage">
+                        <img src="Images/ProjectImages/AI-Learns-to-drive.png" class="projectImage">
+                    </div>
+                    <div class="projectContent">
+                        <h3>AI learns to drive</h3>
+                        <p class="projectDate">Coderclass: 2022-2023 first semester</p>
+                        <h4>A reinforcement learning system created from the ground up using C++ and Raylib</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Id interdum velit laoreet id donec ultrices tincidunt
+                            arcu. Integer feugiat scelerisque varius morbi enim nunc. Iaculis nunc sed augue lacus
+                            viverra vitae congue eu. Aliquet enim tortor at auctor urna nunc. Vitae sapien pellentesque
+                            habitant morbi tristique.</p>
+                    </div>
+                </div>
+                <div class="projectContentWrapper">
+                    <div class="projectContentImage">
+                        <img src="Images/ProjectImages/Pong-Multiplayer.png" class="projectImage">
+                    </div>
+                    <div class="projectContent">
+                        <h3>Pong Multiplayer</h3>
+                        <p class="projectDate">Coderclass: 2022-2023 second semester</p>
+                        <h4>A multiplayer pong game made in javascript using p5 and websockets. </h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Id interdum velit laoreet id donec ultrices tincidunt
+                            arcu. Integer feugiat scelerisque varius morbi enim nunc. Iaculis nunc sed augue lacus
+                            viverra vitae congue eu. Aliquet enim tortor at auctor urna nunc. Vitae sapien pellentesque
+                            habitant morbi tristique.</p>
+                    </div>
+                </div>
+                <div class="projectContentWrapper">
+                    <div class="projectContent">
+                        <h3>Mechanical way to launch RC Planes</h3>
+                        <p class="projectDate">PWS: 2023-2024</p>
+                        <h4></h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Id interdum velit laoreet id donec ultrices tincidunt
+                            arcu. Integer feugiat scelerisque varius morbi enim nunc. Iaculis nunc sed augue lacus
+                            viverra vitae congue eu. Aliquet enim tortor at auctor urna nunc. Vitae sapien pellentesque
+                            habitant morbi tristique.</p>
+                    </div>
+                </div>
+                <div class="projectContentWrapper">
+                    <div class="projectContentImage">
+                        <iframe src="posterPage.html" title="Portfolio site" class="projectImage projectEmbed"
+                                frameborder="0" border="0" cellspacing="0"
+                        ></iframe>
+<!--                        <img src="Images/ProjectImages/Porfolio.png" class="projectImage">-->
+                    </div>
+                    <div class="projectContent">
+                        <h3>Portfolio Website</h3>
+                        <p class="projectDate">PWS: 2023-2024</p>
+                        <h4>A porfolio website with a 3D background.</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Id interdum velit laoreet id donec ultrices tincidunt
+                            arcu. Integer feugiat scelerisque varius morbi enim nunc. Iaculis nunc sed augue lacus
+                            viverra vitae congue eu. Aliquet enim tortor at auctor urna nunc. Vitae sapien pellentesque
+                            habitant morbi tristique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="contact" class="mainSection">
+            <h2>//Contact</h2>
+            <div id="contactSorter">
+                <a href="https://github.com/VelyIvi"><img src="Images/ContactIcons/github-mark-white.svg" alt="Find me on GitHub"></a>
+                <a href="https://www.linkedin.com/in/ivan-velychko-402658267/"><img src="Images/ContactIcons/LinkedIn_icon.svg" alt="Find me on LinkedIn"></a>
+                <a href="https://www.youtube.com/"><img src="Images/ContactIcons/YouTube_dark_icon_(2017).svg" alt="Find me on YouTube"></a>
+                <a href="mailto:ivan.velychko.me@gmail.com"><img src="Images/ContactIcons/mail.svg" alt="Send a mail to me"></a>
+            </div>
+        </div>
+<!--        <div><img src="https://i.kym-cdn.com/photos/images/original/001/642/647/d28"></div>-->
+        <div id="footer">
+            <p>Made by Ivan Velychko</p>
+        </div>
+
+
     </div>
 
     <script type="module" src="/vite.config.js"></script>
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="/background.js"></script>
 </body>
 </html>
