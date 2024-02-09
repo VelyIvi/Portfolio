@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-import icosphereVertexShader from './shaders/voronoi_vertex.glsl'
-import icosphereFragmentShader from './shaders/voronoi_fragment.glsl'
+import icosphereVertexShader from "./shaders/voronoi_vertex.glsl.js";
+import icosphereFragmentShader from "./shaders/voronoi_fragment.glsl.js";
 
 ////RENDERER
 var camera, scene, renderer;
@@ -256,7 +256,7 @@ var starField = new THREE.Points(starsGeometry, starsMaterial);
 ////Checkboxes
 
 if (window.location) {
-    console.log(window.location.pathname);
+    // console.log(window.location.pathname);
     if(window.location.pathname === "/"){
         var DecorationCheck = document.getElementById("decorationCheck");
         var MouseCheck = document.getElementById("mouseCheck");
@@ -303,7 +303,7 @@ if (window.location) {
 
 function checkboxes() {
     if (window.location) {
-        console.log(window.location.pathname);
+        // console.log(window.location.pathname);
         if(window.location.pathname === "/"){
             if (DecorationCheck.checked){
                 if (!decorationsActive){

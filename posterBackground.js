@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-import icosphereVertexShader from './shaders/voronoi_vertex.glsl'
-import icosphereFragmentShader from './shaders/voronoi_fragment.glsl'
+import icosphereVertexShader from "./shaders/voronoi_vertex.glsl.js";
+import icosphereFragmentShader from "./shaders/voronoi_fragment.glsl.js";
 
 ////RENDERER
 var camera, scene, renderer;
@@ -286,7 +286,7 @@ function animate() {
 
 
     camera.position.set(-0.4 - (mouseMove.x*2 -1)/4, -0.1 + (mouseMove.y*2 -1)/4, 1.5);
-    console.log(mouseMove);
+    // console.log(mouseMove);
     // console.log(virtualElapsedTime);
 
     timeRotateAdd(starField, 0.004, 0.005, -0.002);
