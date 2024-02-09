@@ -2,8 +2,6 @@ import * as THREE from 'three';
 
 import icosphereVertexShader from './shaders/voronoi_vertex.glsl'
 import icosphereFragmentShader from './shaders/voronoi_fragment.glsl'
-import {int, split, string} from "three/nodes";
-
 
 ////RENDERER
 var camera, scene, renderer;
