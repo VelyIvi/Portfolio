@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-import icosphereVertexShader from "./shaders/voronoi_vertex.glsl.js";
-import icosphereFragmentShader from "./shaders/voronoi_fragment.glsl.js";
+import icosphereVertexShader from "../shaders/voronoi_vertex.glsl.js";
+import icosphereFragmentShader from "../shaders/voronoi_fragment.glsl.js";
 
 ////RENDERER
 var camera, scene, renderer;
