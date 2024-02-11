@@ -1,11 +1,6 @@
-import vitePluginString from 'vite-plugin-string'
-// import { defineConfig } from 'vite'
-// import dns from 'dns'
+import { defineConfig } from 'vite'
 
-// dns.setDefaultResultOrder('verbatim')
-
-export default {
-    plugins: [
-        vitePluginString()
-    ]
-}
+// https://vitejs.dev/config/
+export default defineConfig({
+    base: "/Portfolio/"
+})

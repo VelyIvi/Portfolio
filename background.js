@@ -255,44 +255,33 @@ var starField = new THREE.Points(starsGeometry, starsMaterial);
 
 ////Checkboxes
 
-if (window.location) {
-    // console.log(window.location.pathname);
-    if(window.location.pathname === "/"){
-        var DecorationCheck = document.getElementById("decorationCheck");
-        var MouseCheck = document.getElementById("mouseCheck");
-        var ScrollCheck = document.getElementById("scrollCheck");
-        var AnimationCheck = document.getElementById("animationCheck");
-        var StarCheck = document.getElementById("starCheck");
-        var IcoCheck = document.getElementById("icoCheck");
+var DecorationCheck = document.getElementById("decorationCheck");
+var MouseCheck = document.getElementById("mouseCheck");
+var ScrollCheck = document.getElementById("scrollCheck");
+var AnimationCheck = document.getElementById("animationCheck");
+var StarCheck = document.getElementById("starCheck");
+var IcoCheck = document.getElementById("icoCheck");
 
 
-        var starsActive = StarCheck.checked;
-        var decorationsActive = DecorationCheck.checked;
-        var icoActive = IcoCheck.checked;
+var starsActive = StarCheck.checked;
+var decorationsActive = DecorationCheck.checked;
+var icoActive = IcoCheck.checked;
 
 
 
-        const fpsDisplay = document.getElementById("fpsDisplay");
+const fpsDisplay = document.getElementById("fpsDisplay");
 
 
-        if (starsActive){
-            scene.add(starField);
-        }
-        if (decorationsActive){
-            scene.add(decorationCube1);
-            scene.add(decorationCube2);
-            scene.add(decorationCube3);
-        }
-        if (icoActive){
-            scene.add(icoSphere);
-        }
-    } else {
-        scene.add(starField);
-        scene.add(decorationCube1);
-        scene.add(decorationCube2);
-        scene.add(decorationCube3);
-        scene.add(icoSphere);
-    }
+if (starsActive){
+    scene.add(starField);
+}
+if (decorationsActive){
+    scene.add(decorationCube1);
+    scene.add(decorationCube2);
+    scene.add(decorationCube3);
+}
+if (icoActive){
+    scene.add(icoSphere);
 }
 
 
@@ -300,61 +289,55 @@ if (window.location) {
 
 
 
-
 function checkboxes() {
-    if (window.location) {
-        // console.log(window.location.pathname);
-        if(window.location.pathname === "/"){
-            if (DecorationCheck.checked){
-                if (!decorationsActive){
-                    decorationsActive = true;
-                        scene.add(decorationCube1);
-                        scene.add(decorationCube2);
-                        scene.add(decorationCube3);
-                }
-            } else {
-                if (decorationsActive){
-                    decorationsActive = false;
-                        scene.remove(decorationCube1);
-                        scene.remove(decorationCube2);
-                        scene.remove(decorationCube3);
-                }
-            }
-            if (MouseCheck.checked){
-                mouseMove = timeLerpVector2(mouseMove, mouse, 3);
-            } else {
-                mouseMove.set(0.5,0.5);
-            }
+    if (DecorationCheck.checked){
+        if (!decorationsActive){
+            decorationsActive = true;
+                scene.add(decorationCube1);
+                scene.add(decorationCube2);
+                scene.add(decorationCube3);
+        }
+    } else {
+        if (decorationsActive){
+            decorationsActive = false;
+                scene.remove(decorationCube1);
+                scene.remove(decorationCube2);
+                scene.remove(decorationCube3);
+        }
+    }
+    if (MouseCheck.checked){
+        mouseMove = timeLerpVector2(mouseMove, mouse, 3);
+    } else {
+        mouseMove.set(0.5,0.5);
+    }
 
-            if (ScrollCheck.checked){
-                cameraScrollMove = timeLerpVector2(cameraScrollMove, cameraScrollPosition, cameraScrollSmoothness);
-            } else {
-                cameraScrollMove.set(-0.4, -0.1, 1.5);
-            }
-            if (StarCheck.checked){
-                if (!starsActive){
-                    starsActive = true;
-                    scene.add(starField);
+    if (ScrollCheck.checked){
+        cameraScrollMove = timeLerpVector2(cameraScrollMove, cameraScrollPosition, cameraScrollSmoothness);
+    } else {
+        cameraScrollMove.set(-0.4, -0.1, 1.5);
+    }
+    if (StarCheck.checked){
+        if (!starsActive){
+            starsActive = true;
+            scene.add(starField);
 
-                }
-            } else {
-                if (starsActive){
-                    starsActive = false;
-                    scene.remove(starField);
-                }
-            }
-            if (IcoCheck.checked){
-                if (!icoActive){
-                    icoActive = true;
-                    scene.add(icoSphere);
+        }
+    } else {
+        if (starsActive){
+            starsActive = false;
+            scene.remove(starField);
+        }
+    }
+    if (IcoCheck.checked){
+        if (!icoActive){
+            icoActive = true;
+            scene.add(icoSphere);
 
-                }
-            } else {
-                if (icoActive){
-                    icoActive = false;
-                    scene.remove(icoSphere);
-                }
-            }
+        }
+    } else {
+        if (icoActive){
+            icoActive = false;
+            scene.remove(icoSphere);
         }
     }
 }
@@ -364,23 +347,16 @@ function checkboxes() {
 const fpsUpdateMax = 0.5;
 var fpsUpdate = 0;
 function animate() {
-
     elapsedTime = clock.getElapsedTime();
 
     delta = clamp(elapsedTime - oldTime, 0, 1);
 
     fpsUpdate += elapsedTime - oldTime;
 
-
-    if (window.location) {
-        // console.log(window.location.pathname);
-        if(window.location.pathname === "/"){
-            checkboxes();
-            if(fpsUpdate>= fpsUpdateMax){
-                fpsDisplay.innerHTML = "FPS: " + Math.round(1/(elapsedTime - oldTime));
-                fpsUpdate = 0;
-            }
-        }
+    checkboxes();
+    if(fpsUpdate>= fpsUpdateMax){
+        fpsDisplay.innerHTML = "FPS: " + Math.round(1/(elapsedTime - oldTime));
+        fpsUpdate = 0;
     }
 
     // console.log(icoSphere.geometry);

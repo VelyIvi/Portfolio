@@ -5,11 +5,15 @@
     "three": "^0.156.1"
   },
   "devDependencies": {
-    "vite": "^4.4.9",
-    "vite-plugin-string": "^1.2.1"
+    "gh-pages": "^6.1.1",
+    "vite": "^4.5.2"
   },
+  "homepage": "https://velyivi.github.io/Portfolio/",
+  "type": "module",
   "scripts": {
-    "build": "webpack --config ./src/client/webpack.prod.js",
-    "deploy": "gh-pages -d ./dist/client"
+    "dev": "vite",
+    "build": "vite build",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist"
   }
 }
