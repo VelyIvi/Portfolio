@@ -9,7 +9,7 @@ export default defineConfig({
             input: {
                 main: resolve(__dirname, 'index.html'),
                 poster: resolve(__dirname, 'poster/index.html'),
-                bad: resolve(__dirname, 'jokeSite/index.html'),
+                // bad: resolve(__dirname, 'jokeSite/index.html'),
             },
         },
     },
