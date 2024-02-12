@@ -9,7 +9,6 @@ var camera, scene, renderer;
 var DarkColor = "0B0A0A";
 var MainColor = "FBB13C";
 var ShadeColor = "AA0E47";
-var LightColor = "FDF0D5";
 
 
 function hexToRgb(hex) {
@@ -54,8 +53,6 @@ function randomVectorColor (){
 
 
 function init() {
-    // Number.prototype.clamp = (num, min, max) => Math.min(Math.max(num, min), max);
-
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#bg'),
         antialias: true,
@@ -63,15 +60,8 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-
-    ////SCENE
-
     ////CAMERA
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-    const t = -document.body.getBoundingClientRect().top/(height-windowInnerHeight);
-    // console.log(t);
-    cameraScrollPosition.set(-0.4 + t*1.0, -0.1 + t*0.5, 1.5);
 }
 
 
@@ -117,12 +107,6 @@ decorationCube3.position.z = -0.3;
 scene.background = new THREE.Color("rgb("+ hexToRgb(DarkColor)+ ")");
 
 ////DOCUMENT INTERACTION
-var body = document.body,
-    html = document.documentElement;
-
-var height = Math.max( body.scrollHeight, body.offsetHeight,
-    html.clientHeight, html.scrollHeight, html.offsetHeight );
-
 var windowInnerHeight = window.innerHeight;
 
 window.addEventListener( 'resize', (event) => {
@@ -145,9 +129,7 @@ function timeRotateAdd(objectR, xR, yR, zR){
     objectR.rotation.z += zR * delta;
 }
 
-const  cameraScrollSmoothness = 1/2;
-var cameraScrollPosition = new THREE.Vector3(0, 0, 0);
-var cameraScrollMove = new THREE.Vector3(0, 0, 1.5);
+
 
 let mouse = new THREE.Vector2();
 var mouseMove = new THREE.Vector2();
@@ -203,30 +185,12 @@ function randFloatSpread(value){
     return ((Math.random()-0.5)*value);
 }
 
-
-
-function quadraticRandFloatSpread(value){
-    const randomValue = (Math.random()*2-1);
-
-    return ((Math.pow(randomValue, 2)/2)*value*Math.sign(randomValue));
-}
-
-function randFloatRange(min, max) {
-    const range = max - min;
-    return (Math.random() * range + min);
-}
-
 var stars = new Array(0);
-// for ( var i = 0; i < 1000; i ++ ) {
-//     let x = randFloatSpread(1000);
-//     let y = randFloatSpread(  500);
-//     let z = randFloatRange( -1000, -100);
-//     stars.push(x, y, z);
-// }
-for ( var i = 0; i < 5000; i ++ ) { //i < 3000
-    let x = randFloatSpread(1000);
-    let y = randFloatSpread(  1000);
-    let z = randFloatSpread(  1000);
+
+for ( var i = 0; i < 1000; i ++ ) { //i < 3000
+    let x = randFloatSpread(300);
+    let y = randFloatSpread(  300);
+    let z = randFloatSpread(  300);
     stars.push(x, y, z);
 }
 var starsGeometry = new THREE.BufferGeometry();
@@ -242,19 +206,11 @@ scene.add(starField);
 scene.add(icoSphere);
 
 
-const fpsUpdateMax = 0.5;
-var fpsUpdate = 0;
-
-
 function animate() {
-
     elapsedTime = clock.getElapsedTime();
 
     delta = clamp(elapsedTime - oldTime, 0, 1);
 
-    fpsUpdate += elapsedTime - oldTime;
-
-    // console.log(icoSphere.geometry);
     virtualElapsedTime += delta;
     mouseMove = timeLerpVector2(mouseMove, mouse, 3);
 
@@ -267,11 +223,6 @@ function animate() {
     colorChangeButton.style.color = rgbToString(vectorToRgb(mainColorCurrent));
 
 
-    // passionText.style.background =
-    //     "-webkit-linear-gradient(45deg, " +  rgbToString(vectorToRgb(mainColorCurrent)) +", #" + ShadeColor +")";
-    // passionText.style.webkitBackgroundClip = "text";
-    // passionText.style.webkitTextFillColor = "transparent";
-
     if (colorChangeTimerCurrent >= colorChangeTimerMax){
         mainColorDirection = randomVectorColor();
         colorChangeTimerCurrent = 0;
@@ -281,17 +232,10 @@ function animate() {
     mainColorCurrent = timeLerpVectorColor(mainColorCurrent, mainColorDirection, mainColorSpeed);
     icoSphere.material.uniforms.mainColor.value = mainColorCurrent;
 
-    // console.log(mainColorDirection);
-    // console.log(mainColorCurrent);
-
 
     camera.position.set(-0.4 - (mouseMove.x*2 -1)/4, -0.1 + (mouseMove.y*2 -1)/4, 1.5);
-    // console.log(mouseMove);
-    // console.log(virtualElapsedTime);
 
     timeRotateAdd(starField, 0.004, 0.005, -0.002);
-    // timeRotateAdd(starField, 1, 1, -1);
-
 
     icoSphere.material.uniforms.uTime.value = 0.5*virtualElapsedTime;
 
@@ -314,7 +258,6 @@ function animate() {
 
     icoSphere.position.y = Math.sin(virtualElapsedTime*0.2)/30;
     icoSphere.position.x = Math.sin(virtualElapsedTime/20)/80;
-
 
     requestAnimationFrame( animate );
     renderer.render( scene, camera );

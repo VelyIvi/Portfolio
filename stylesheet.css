@@ -212,16 +212,37 @@ canvas {
 }
 
 .menu {
-    position: fixed;
-    right: 0;
-    top: 50%;
+    /*right: 0;*/
+    /*top: 50%;*/
+    /*bottom: 0;*/
+    /*-ms-transform: translateY(-50%);*/
     background: var(--dark-color);
     list-style-type: none;
-    padding: 0;
-    margin: 0;
+    padding: 0.5rem;
+    border-radius: var(--default-border-radius);
+    margin: 0.5rem;
+    /*margin-bottom: 20vh;*/
+    z-index: 2;
 }
 .menu a {
     text-decoration: none;
+}
+
+#menuContainer {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    right: 0;
+    top: 0;
+    overflow: scroll;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    /*border: 3px solid green;*/
 }
 
 a {
@@ -272,10 +293,13 @@ a {
     /*height: 100%;*/
 
 }
-#aboutImage {
+#skill{
     grid-area: aboutmeImage;
-    width: 100%;
 }
+/*#aboutImage {*/
+/*    grid-area: aboutmeImage;*/
+/*    width: 100%;*/
+/*}*/
 #contact{
     grid-area: contact;
     /*background: #EDEDED !important;*/
@@ -336,7 +360,7 @@ a {
     max-width: calc(100% - 1vw);
     width:100%;
     height: auto;
-    margin-bottom: 1vh;
+    margin-bottom: 0.5rem;
     padding: 0.5vw;
     background: var(--dark-color);
     filter: var(--default-drop-shadow);
@@ -356,23 +380,39 @@ a {
     font-style: italic;
     font-size: 1rem;
 }
+.projectContent a {
+    display: block;/* no clue why this works*/
+    margin-top: 1rem;
+}
 #footer {
     grid-area: footer;
     grid-column: span 4;
     padding: 0.2vw;
     background: var(--dark-color);
     filter: var(--default-drop-shadow);
+    display: flex;
+    justify-content: space-between;
+}
 
+#footerDate{
+    text-align: right;
 }
 
 
 
 #contactSorter{
     display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
-#contactSorter img {
-    height: 3rem;
+#contactSorter a {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+#contactSorter a svg {
+    margin-right: 1vw;
 }
 

@@ -284,11 +284,6 @@ if (icoActive){
     scene.add(icoSphere);
 }
 
-
-
-
-
-
 function checkboxes() {
     if (DecorationCheck.checked){
         if (!decorationsActive){
