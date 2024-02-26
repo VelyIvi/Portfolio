@@ -354,7 +354,6 @@ function animate() {
         fpsUpdate = 0;
     }
 
-    // console.log(icoSphere.geometry);
     virtualElapsedTime += delta;
     frontTitle.style.background =
         "-webkit-linear-gradient(left top, " +  rgbToString(vectorToRgb(mainColorCurrent)) +", #" + ShadeColor +")";
@@ -363,11 +362,6 @@ function animate() {
 
     colorChangeButton.style.color = rgbToString(vectorToRgb(mainColorCurrent));
 
-
-    // passionText.style.background =
-    //     "-webkit-linear-gradient(45deg, " +  rgbToString(vectorToRgb(mainColorCurrent)) +", #" + ShadeColor +")";
-    // passionText.style.webkitBackgroundClip = "text";
-    // passionText.style.webkitTextFillColor = "transparent";
 
     if (colorChangeTimerCurrent >= colorChangeTimerMax){
         mainColorDirection = randomVectorColor();
@@ -378,16 +372,10 @@ function animate() {
     mainColorCurrent = timeLerpVectorColor(mainColorCurrent, mainColorDirection, mainColorSpeed);
     icoSphere.material.uniforms.mainColor.value = mainColorCurrent;
 
-    // console.log(mainColorDirection);
-    // console.log(mainColorCurrent);
-
 
     camera.position.set(cameraScrollMove.x - (mouseMove.x*2 -1)/4, cameraScrollMove.y + (mouseMove.y*2 -1)/4, cameraScrollPosition.z);
-    // console.log(virtualElapsedTime);
 
     timeRotateAdd(starField, 0.004, 0.005, -0.002);
-    // timeRotateAdd(starField, 1, 1, -1);
-
 
     icoSphere.material.uniforms.uTime.value = 0.5*virtualElapsedTime;
 
@@ -398,6 +386,8 @@ function animate() {
 
     icoSphere.material.uniforms.uChange.value = cameraScrollEffectMove * 0.9;
 
+
+    // The decorations as shown as cubes in the scene animated
     timeRotateAdd(decorationCube1, 0.05, 0.05, 0.05);
     timeRotateAdd(decorationCube2, -0.01, 0.08, -0.05);
     timeRotateAdd(decorationCube3, 0.015, 0.03, -0.05);
