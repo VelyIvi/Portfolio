@@ -13,5 +13,5 @@ const fragmentShader = `
         gl_FragColor = vec4(color, 1.0);
     }
 `
-
+//Changes the colour of the pixel depending on how deep it is relative to the unaltered point map of the object
 export default fragmentShader

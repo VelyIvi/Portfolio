@@ -55,5 +55,5 @@ const vertexShader = `
         gl_Position = projectionMatrix * modelViewMatrix * vec4((voronoiMix)*vec3( vec4( position, 1.0 ) * modelMatrix), 1.0 );
     }
 `
-
+//Displaces the points of the object based on a voronoi shader
 export default vertexShader
