@@ -54,8 +54,6 @@ function randomVectorColor (){
 
 
 function init() {
-    // Number.prototype.clamp = (num, min, max) => Math.min(Math.max(num, min), max);
-
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#bg'),
         antialias: true,
@@ -141,7 +139,6 @@ window.addEventListener("mousemove", (event) => { // convert to normalized devic
 
 addEventListener("scroll", (event) => {
     const t = -document.body.getBoundingClientRect().top/(height-windowInnerHeight);
-    // console.log(t);
     cameraScrollEffect = t;
     cameraScrollPosition.set(-0.4 + t*1.0, -0.1 + t*0.5, 1.5);
 
@@ -199,9 +196,6 @@ colorChangeButton.addEventListener('click', colorChangeButtonEvent);
 
 const frontTitle = document.getElementById("frontName");
 
-// const passionText = document.getElementById("passionText");
-
-
 function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
 }
@@ -232,22 +226,18 @@ function randFloatRange(min, max) {
 }
 
 var stars = new Array(0);
-// for ( var i = 0; i < 1000; i ++ ) {
-//     let x = randFloatSpread(1000);
-//     let y = randFloatSpread(  500);
-//     let z = randFloatRange( -1000, -100);
-//     stars.push(x, y, z);
-// }
 for ( var i = 0; i < 5000; i ++ ) { //i < 3000
     let x = randFloatSpread(1000);
     let y = randFloatSpread(  1000);
     let z = randFloatSpread(  1000);
     stars.push(x, y, z);
 }
+
 var starsGeometry = new THREE.BufferGeometry();
 starsGeometry.setAttribute(
     "position", new THREE.Float32BufferAttribute(stars, 3)
 );
+
 var starsMaterial = new THREE.PointsMaterial( { color: 0xffffff } );
 var starField = new THREE.Points(starsGeometry, starsMaterial);
 
@@ -262,15 +252,11 @@ var AnimationCheck = document.getElementById("animationCheck");
 var StarCheck = document.getElementById("starCheck");
 var IcoCheck = document.getElementById("icoCheck");
 
-
 var starsActive = StarCheck.checked;
 var decorationsActive = DecorationCheck.checked;
 var icoActive = IcoCheck.checked;
 
-
-
 const fpsDisplay = document.getElementById("fpsDisplay");
-
 
 if (starsActive){
     scene.add(starField);
